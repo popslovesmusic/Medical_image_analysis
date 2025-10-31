@@ -1,0 +1,161 @@
+{
+    "project": "Medical_image_analysis",
+    "generated_at": "2025-10-31T21:59:14.185611",
+    "structure": [
+        {
+            "path": "E:\\Medical_image_analysis",
+            "type": "MISC",
+            "files": [
+                "dir.py",
+                "project_structure_inspector.py"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub",
+            "type": "MISC",
+            "files": [
+                "AGENTS.md",
+                "root-spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core",
+            "type": "CORE_MODULE",
+            "files": [
+                "core-spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src",
+            "type": "MISC",
+            "files": [
+                "src-spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\bridge",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\diagnostics",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\dream",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\meta",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\tensor",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\tests",
+            "type": "TESTS",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\scripts",
+            "type": "SCRIPTS",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer",
+            "type": "TRAINER_MODULE",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\config",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\docs",
+            "type": "DOCUMENTATION",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\src",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\src\\model",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\src\\tokenizer",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\src\\training",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\src\\validator",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\data",
+            "type": "DATASETS",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\data\\processed",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\data\\samples",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\docs",
+            "type": "DOCUMENTATION",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\experiments",
+            "type": "EXPERIMENTS",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\experiments\\archive",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\experiments\\results",
+            "type": "MISC",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\notebooks",
+            "type": "NOTEBOOKS",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\tests",
+            "type": "TESTS",
+            "files": []
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\tests\\fixtures",
+            "type": "MISC",
+            "files": []
+        }
+    ]
+}
