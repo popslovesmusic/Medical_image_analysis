@@ -8,6 +8,7 @@
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
 pub mod bridge;
 >>>>>>> theirs
@@ -16,6 +17,10 @@ pub mod bridge;
 >>>>>>> theirs
 =======
 pub mod bridge;
+>>>>>>> theirs
+=======
+pub mod bridge;
+pub mod diagnostics;
 >>>>>>> theirs
 pub mod tensor;
 
@@ -30,7 +35,10 @@ pub const SPECTRAL_CHANNELS: usize = 3;
 
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 /// Unified Modality Space total dimensionality (spectral + chromatic + temporal).
@@ -52,6 +60,9 @@ pub const UMS_TEMPORAL_OFFSET: usize = UMS_CHROMATIC_OFFSET + UMS_CHROMATIC_BAND
 pub const UMS_TEMPORAL_BANDS: usize = UMS_DIM - UMS_TEMPORAL_OFFSET;
 
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs

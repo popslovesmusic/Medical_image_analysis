@@ -8,6 +8,7 @@
 use chromatic_core::{
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
     bridge::{decode_to_chromatic, encode_to_spectral, record_seam_weights, validate_round_trip},
     tensor::{delta_hsl, hsl_to_rgb, rgb_to_hsl, ChromaticTensor, Shape2D},
 =======
@@ -19,6 +20,8 @@ use chromatic_core::{
     UMS_TEMPORAL_OFFSET,
 >>>>>>> theirs
 =======
+=======
+>>>>>>> theirs
     bridge::{
         compress_ums, decode_to_chromatic, decompress_ums, encode_to_spectral, project_to_ums,
         reconstruct_chromatic_from_ums, reconstruct_spectral_from_ums, record_seam_weights,
@@ -26,6 +29,9 @@ use chromatic_core::{
     },
     tensor::{delta_hsl, hsl_to_rgb, normalize_hue, rgb_to_hsl, ChromaticTensor, Shape2D},
     UMS_TEMPORAL_OFFSET,
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 };
 
@@ -95,7 +101,10 @@ fn encoding_distributes_energy_across_bins() {
 }
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 
@@ -124,7 +133,10 @@ fn compute_mean_hsl(chromatic: &ChromaticTensor) -> (f32, f32, f32) {
 }
 
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 fn compute_stats(values: &[f32]) -> (f32, f32) {
     if values.is_empty() {
         return (0.0, 0.0);
@@ -142,6 +154,9 @@ fn compute_stats(values: &[f32]) -> (f32, f32) {
     (mean, (var / values.len() as f32).sqrt())
 }
 
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 fn make_gradient_tensor(shape: Shape2D) -> ChromaticTensor {
     let mut rgb = Vec::with_capacity(shape.rgb_len());
@@ -196,8 +211,11 @@ fn ums_projection_recovers_spectral_bins() {
     }
 }
 <<<<<<< ours
+<<<<<<< ours
 >>>>>>> theirs
 =======
+=======
+>>>>>>> theirs
 
 #[test]
 fn ums_compression_round_trip_within_tolerance() {
@@ -232,4 +250,7 @@ fn ums_compression_round_trip_within_tolerance() {
         "compression should produce non-zero payload"
     );
 }
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs

@@ -7,7 +7,11 @@ use crate::{
 };
 
 <<<<<<< ours
+<<<<<<< ours
 use super::{hue_to_bin_weights, map_luminance_to_sigma, mean_hsl, normalize_hue};
+=======
+use super::{hue_to_bin_weights, map_luminance_to_sigma, mean_hsl, normalize_hue, EPSILON};
+>>>>>>> theirs
 =======
 use super::{hue_to_bin_weights, map_luminance_to_sigma, mean_hsl, normalize_hue, EPSILON};
 >>>>>>> theirs
@@ -22,7 +26,10 @@ pub struct UnifiedModalitySpace {
 }
 
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 /// Half-precision (f16) encoded representation of a Unified Modality Space vector.
 #[derive(Clone, Debug, PartialEq)]
 pub struct CompressedUnifiedModality {
@@ -34,6 +41,9 @@ pub struct CompressedUnifiedModality {
 const F16_MAX: Fx = 65_504.0;
 const F16_MIN: Fx = -65_504.0;
 
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 impl UnifiedModalitySpace {
     /// Creates a zero-initialised UMS vector.
@@ -44,12 +54,18 @@ impl UnifiedModalitySpace {
     }
 
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
     /// Creates a UMS vector from an explicit array.
     pub fn from_array(data: [Fx; UMS_DIM]) -> Self {
         Self { data }
     }
 
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
     /// Returns the raw slice backing the UMS vector.
     pub fn as_slice(&self) -> &[Fx] {
@@ -88,12 +104,18 @@ impl UnifiedModalitySpace {
         &self.data[start..end]
     }
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 
     /// Returns the fixed dimensionality of the UMS vector.
     pub fn len(&self) -> usize {
         UMS_DIM
     }
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 }
 
@@ -104,7 +126,10 @@ impl Default for UnifiedModalitySpace {
 }
 
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 impl CompressedUnifiedModality {
     /// Returns the stored global mean used for μ/σ normalisation.
     pub fn mean(&self) -> Fx {
@@ -131,6 +156,9 @@ impl CompressedUnifiedModality {
     }
 }
 
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 /// Projects chromatic and spectral tensors into the Unified Modality Space.
 pub fn project_to_ums(
@@ -253,7 +281,10 @@ pub fn reconstruct_spectral_from_ums(
 }
 
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 /// Compresses a Unified Modality Space vector using μ/σ normalisation and f16 payloads.
 pub fn compress_ums(ums: &UnifiedModalitySpace) -> CompressedUnifiedModality {
     let (mean, std) = compute_moments(ums.as_slice());
@@ -280,6 +311,9 @@ pub fn decompress_ums(compressed: &CompressedUnifiedModality) -> UnifiedModality
     compressed.decompress()
 }
 
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 fn populate_spectral(ums: &mut UnifiedModalitySpace, spectral: &SpectralTensor) {
     let bins = spectral.bins.len();
@@ -399,7 +433,10 @@ fn populate_temporal(ums: &mut UnifiedModalitySpace, spectral: &SpectralTensor) 
     ums.data[start] = energy;
 }
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 
 fn compute_moments(values: &[Fx]) -> (Fx, Fx) {
     if values.is_empty() {
@@ -495,4 +532,7 @@ fn f16_bits_to_f32(bits: u16) -> Fx {
     let mantissa_bits = mantissa << 13;
     Fx::from_bits(sign_bits | exponent_bits | mantissa_bits)
 }
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
