@@ -1,0 +1,16 @@
+[package]
+name = "chromatic-core"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+authors = ["Codex Agent <codex@example.com>"]
+description = "Deterministic chromatic tensor operations for the Medical Image Analysis system"
+
+[lib]
+name = "chromatic_core"
+path = "src/lib.rs"
+
+[dependencies]
+
+[dev-dependencies]
+
