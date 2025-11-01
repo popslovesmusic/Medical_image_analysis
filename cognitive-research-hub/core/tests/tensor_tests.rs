@@ -6,8 +6,14 @@
 //! - `cognitive-research-hub/core/src/tensor/spec.md`
 
 use chromatic_core::tensor::{
+<<<<<<< ours
     add_rgb, delta_hsl, hsl_to_rgb, map_rgb_inplace, mask_inject, mean_rgb, mix_rgb, normalize_hue,
     rgb_to_hsl, sum_fixed_rgb, ChromaticTensor, Shape2D,
+=======
+    add_gaussian_kernel, add_rgb, bin_freq, delta_hsl, grad_hsl_loss, grad_mix, hsl_to_rgb,
+    map_rgb_inplace, mask_inject, mean_rgb, mix_rgb, normalize_hue, rgb_to_hsl, spectral_centroid,
+    spectral_energy, sum_fixed_rgb, ChromaticTensor, Shape2D, SpectralTensor,
+>>>>>>> theirs
 };
 
 fn sample_tensor(value: f32) -> ChromaticTensor {
@@ -88,3 +94,47 @@ fn fixed_point_sum_is_stable() {
         assert_eq!(channel, expected);
     }
 }
+<<<<<<< ours
+=======
+
+#[test]
+fn spectral_utilities_behave() {
+    assert!((bin_freq(0, 10.0, 5.0, false) - 10.0).abs() < 1e-6);
+    assert!((bin_freq(2, 10.0, 5.0, false) - 20.0).abs() < 1e-6);
+    assert!((bin_freq(2, 10.0, 2.0, true) - 40.0).abs() < 1e-4);
+
+    let mut spec = SpectralTensor::new(vec![0.0; 5], None, 10.0, 5.0, false);
+    add_gaussian_kernel(&mut spec, 20.0, 5.0, 1.0);
+    assert!(spec.bins[2] > spec.bins[1] && spec.bins[2] > spec.bins[3]);
+    let energy = spectral_energy(&spec);
+    assert!(energy > 0.0);
+    let centroid = spectral_centroid(&spec);
+    assert!((centroid - 20.0).abs() < 2.0);
+}
+
+#[test]
+fn grad_mix_matches_expectation() {
+    let a = (0.8, 0.3, 0.2);
+    let b = (0.2, 0.7, 0.4);
+    let d_out = (1.0, 2.0, 3.0);
+    let (grad_a, grad_b, d_alpha) = grad_mix(a, b, 0.25, d_out);
+    assert!((grad_a.dr - 0.25).abs() < 1e-6);
+    assert!((grad_a.dg - 0.5).abs() < 1e-6);
+    assert!((grad_a.db - 0.75).abs() < 1e-6);
+    assert!((grad_b.dr - 0.75).abs() < 1e-6);
+    assert!((grad_b.dg - 1.5).abs() < 1e-6);
+    assert!((grad_b.db - 2.25).abs() < 1e-6);
+    let expected_alpha = d_out.0 * (a.0 - b.0) + d_out.1 * (a.1 - b.1) + d_out.2 * (a.2 - b.2);
+    assert!((d_alpha - expected_alpha).abs() < 1e-6);
+}
+
+#[test]
+fn grad_hsl_loss_vanishes_at_target() {
+    let target_hsl = (std::f32::consts::PI / 3.0, 0.6, 0.4);
+    let target_rgb = hsl_to_rgb(target_hsl.0, target_hsl.1, target_hsl.2);
+    let grad = grad_hsl_loss(target_rgb, target_hsl);
+    assert!(grad.dr.abs() < 1e-3);
+    assert!(grad.dg.abs() < 1e-3);
+    assert!(grad.db.abs() < 1e-3);
+}
+>>>>>>> theirs

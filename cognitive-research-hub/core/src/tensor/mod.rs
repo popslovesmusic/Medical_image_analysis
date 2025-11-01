@@ -12,8 +12,18 @@ mod spectral;
 
 pub use chromatic::{delta_hsl, hsl_to_rgb, normalize_hue, rgb_to_hsl, ChromaticTensor};
 pub use layout::{Shape2D, Stride2D};
+<<<<<<< ours
 pub use ops::{add_rgb, map_rgb_inplace, mask_inject, mean_rgb, mix_rgb, sum_fixed_rgb};
 pub use spectral::SpectralTensor;
+=======
+pub use ops::{
+    add_rgb, grad_hsl_loss, grad_mix, map_rgb_inplace, mask_inject, mean_rgb, mix_rgb,
+    sum_fixed_rgb, GradRGB,
+};
+pub use spectral::{
+    add_gaussian_kernel, bin_freq, spectral_centroid, spectral_energy, SpectralTensor,
+};
+>>>>>>> theirs
 
 /// Shared helper for computing deterministic RGB index offsets.
 #[inline]
