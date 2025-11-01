@@ -14,6 +14,7 @@ use std::f32::consts::PI;
 
 use crate::{tensor::*, Fx, HUE_CATEGORIES};
 
+<<<<<<< ours
 /// Base frequency (Hz) used for hue→frequency mapping.
 const BASE_FREQUENCY: Fx = 27.5; // A0 reference
 /// Octave span encoded by the bridge.
@@ -26,23 +27,56 @@ const MAX_SIGMA: Fx = 48.0;
 const ROUND_TRIP_TOLERANCE: Fx = 1e-3;
 /// Epsilon used to guard against divisions by zero.
 const EPSILON: Fx = 1e-6;
+=======
+mod ums;
+
+pub use ums::{
+    project_to_ums, reconstruct_chromatic_from_ums, reconstruct_spectral_from_ums,
+    UnifiedModalitySpace,
+};
+
+/// Base frequency (Hz) used for hue→frequency mapping.
+pub(crate) const BASE_FREQUENCY: Fx = 27.5; // A0 reference
+/// Octave span encoded by the bridge.
+pub(crate) const OCTAVE_SPAN: Fx = 5.0;
+/// Minimal Gaussian width in Hz for luminance→sigma mapping.
+pub(crate) const MIN_SIGMA: Fx = 4.0;
+/// Maximal Gaussian width in Hz for luminance→sigma mapping.
+pub(crate) const MAX_SIGMA: Fx = 48.0;
+/// Round-trip tolerance for Δ components.
+const ROUND_TRIP_TOLERANCE: Fx = 1e-3;
+/// Epsilon used to guard against divisions by zero.
+pub(crate) const EPSILON: Fx = 1e-6;
+>>>>>>> theirs
 
 fn ratio_per_bin() -> Fx {
     let steps = (HUE_CATEGORIES as Fx - 1.0).max(1.0);
     2f32.powf(OCTAVE_SPAN / steps)
 }
 
+<<<<<<< ours
 fn map_luminance_to_sigma(l: Fx) -> Fx {
+=======
+pub(crate) fn map_luminance_to_sigma(l: Fx) -> Fx {
+>>>>>>> theirs
     let l_clamped = l.clamp(0.0, 1.0);
     MIN_SIGMA + (1.0 - l_clamped) * (MAX_SIGMA - MIN_SIGMA)
 }
 
+<<<<<<< ours
 fn sigma_to_luminance(sigma: Fx) -> Fx {
+=======
+pub(crate) fn sigma_to_luminance(sigma: Fx) -> Fx {
+>>>>>>> theirs
     let sigma_clamped = sigma.clamp(MIN_SIGMA, MAX_SIGMA);
     1.0 - (sigma_clamped - MIN_SIGMA) / (MAX_SIGMA - MIN_SIGMA)
 }
 
+<<<<<<< ours
 fn hue_to_bin_weights(hue: Fx) -> (usize, Fx, usize, Fx) {
+=======
+pub(crate) fn hue_to_bin_weights(hue: Fx) -> (usize, Fx, usize, Fx) {
+>>>>>>> theirs
     let hue_norm = normalize_hue(hue);
     let span = 2.0 * PI;
     let scaled = (hue_norm / span) * HUE_CATEGORIES as Fx;
@@ -73,7 +107,11 @@ fn hue_from_frequency(freq: Fx) -> Fx {
     normalize_hue(hue)
 }
 
+<<<<<<< ours
 fn mean_hsl(chromatic: &ChromaticTensor) -> (Fx, Fx, Fx) {
+=======
+pub(crate) fn mean_hsl(chromatic: &ChromaticTensor) -> (Fx, Fx, Fx) {
+>>>>>>> theirs
     let mut sum_cos = 0.0;
     let mut sum_sin = 0.0;
     let mut sum_s = 0.0;

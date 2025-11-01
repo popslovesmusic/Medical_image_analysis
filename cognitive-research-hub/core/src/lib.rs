@@ -6,6 +6,10 @@
 //! - `cognitive-research-hub/core/src/tensor/spec.md`
 
 <<<<<<< ours
+<<<<<<< ours
+=======
+pub mod bridge;
+>>>>>>> theirs
 =======
 pub mod bridge;
 >>>>>>> theirs
@@ -20,6 +24,27 @@ pub const HUE_CATEGORIES: usize = 12;
 /// Number of spectral channels per chromatic field sample.
 pub const SPECTRAL_CHANNELS: usize = 3;
 
+<<<<<<< ours
+=======
+/// Unified Modality Space total dimensionality (spectral + chromatic + temporal).
+pub const UMS_DIM: usize = 512;
+
+/// Number of slots reserved for spectral information inside the Unified Modality Space.
+pub const UMS_SPECTRAL_BANDS: usize = 256;
+
+/// Starting index for chromatic slots within the Unified Modality Space vector.
+pub const UMS_CHROMATIC_OFFSET: usize = UMS_SPECTRAL_BANDS;
+
+/// Number of chromatic slots allocated in the Unified Modality Space.
+pub const UMS_CHROMATIC_BANDS: usize = 128;
+
+/// Starting index for temporal slots within the Unified Modality Space vector.
+pub const UMS_TEMPORAL_OFFSET: usize = UMS_CHROMATIC_OFFSET + UMS_CHROMATIC_BANDS;
+
+/// Number of temporal slots currently reserved within the Unified Modality Space.
+pub const UMS_TEMPORAL_BANDS: usize = UMS_DIM - UMS_TEMPORAL_OFFSET;
+
+>>>>>>> theirs
 /// Convenience alias for floating point operations within the core.
 pub type Fx = f32;
 

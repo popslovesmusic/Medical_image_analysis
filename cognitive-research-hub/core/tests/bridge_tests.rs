@@ -6,8 +6,17 @@
 //! - `cognitive-research-hub/core/src/bridge/spec.md`
 
 use chromatic_core::{
+<<<<<<< ours
     bridge::{decode_to_chromatic, encode_to_spectral, record_seam_weights, validate_round_trip},
     tensor::{delta_hsl, hsl_to_rgb, rgb_to_hsl, ChromaticTensor, Shape2D},
+=======
+    bridge::{
+        decode_to_chromatic, encode_to_spectral, project_to_ums, reconstruct_chromatic_from_ums,
+        reconstruct_spectral_from_ums, record_seam_weights, validate_round_trip,
+    },
+    tensor::{delta_hsl, hsl_to_rgb, normalize_hue, rgb_to_hsl, ChromaticTensor, Shape2D},
+    UMS_TEMPORAL_OFFSET,
+>>>>>>> theirs
 };
 
 fn make_uniform_tensor(h: f32, s: f32, l: f32, shape: Shape2D) -> ChromaticTensor {
@@ -74,3 +83,83 @@ fn encoding_distributes_energy_across_bins() {
         .iter()
         .all(|&sigma| sigma >= 4.0 && sigma <= 48.0));
 }
+<<<<<<< ours
+=======
+
+fn compute_mean_hsl(chromatic: &ChromaticTensor) -> (f32, f32, f32) {
+    let mut sum_cos = 0.0f32;
+    let mut sum_sin = 0.0f32;
+    let mut sum_s = 0.0f32;
+    let mut sum_l = 0.0f32;
+    let mut count = 0.0f32;
+    for row in 0..chromatic.shape.h {
+        for col in 0..chromatic.shape.w {
+            let rgb = chromatic.rgb_at(row, col);
+            let (h, s, l) = rgb_to_hsl(rgb[0], rgb[1], rgb[2]);
+            sum_cos += h.cos();
+            sum_sin += h.sin();
+            sum_s += s;
+            sum_l += l;
+            count += 1.0;
+        }
+    }
+    if count <= 0.0 {
+        return (0.0, 0.0, 0.5);
+    }
+    let avg_h = sum_sin.atan2(sum_cos);
+    (normalize_hue(avg_h), sum_s / count, sum_l / count)
+}
+
+fn make_gradient_tensor(shape: Shape2D) -> ChromaticTensor {
+    let mut rgb = Vec::with_capacity(shape.rgb_len());
+    let total = shape.cell_count() as f32;
+    for idx in 0..shape.cell_count() {
+        let hue = 2.0 * std::f32::consts::PI * (idx as f32 / total);
+        let sat = 0.35 + 0.25 * ((idx % shape.w) as f32 / shape.w as f32);
+        let lum = 0.25 + 0.5 * ((idx / shape.w) as f32 / shape.h as f32);
+        let (r, g, b) = hsl_to_rgb(hue, sat, lum);
+        rgb.extend_from_slice(&[r, g, b]);
+    }
+    ChromaticTensor::new(shape, rgb, None)
+}
+
+#[test]
+fn ums_projection_round_trip_restores_statistics() {
+    let shape = Shape2D::new(3, 4);
+    let chromatic = make_gradient_tensor(shape);
+    let spectral = encode_to_spectral(&chromatic);
+    let ums = project_to_ums(&chromatic, &spectral);
+
+    let expected_mean = compute_mean_hsl(&chromatic);
+    let reconstructed_mean = reconstruct_chromatic_from_ums(&ums);
+    let (dh, ds, dl) = delta_hsl(expected_mean, reconstructed_mean);
+    assert!(dh.abs() <= 1e-4, "ΔH = {}", dh);
+    assert!(ds.abs() <= 1e-4, "ΔS = {}", ds);
+    assert!(dl.abs() <= 1e-4, "ΔL = {}", dl);
+
+    let histogram_sum: f32 = ums.chromatic_histogram().iter().sum();
+    assert!((histogram_sum - 1.0).abs() <= 1e-4);
+
+    let temporal_start = UMS_TEMPORAL_OFFSET;
+    let energy_delta = (ums.as_slice()[temporal_start] - spectral.energy()).abs();
+    assert!(energy_delta <= 1e-6, "ΔEnergy = {}", energy_delta);
+}
+
+#[test]
+fn ums_projection_recovers_spectral_bins() {
+    let shape = Shape2D::new(2, 6);
+    let chromatic = make_gradient_tensor(shape);
+    let spectral = encode_to_spectral(&chromatic);
+    let ums = project_to_ums(&chromatic, &spectral);
+
+    let (amps, sigmas) = reconstruct_spectral_from_ums(&ums, spectral.bins.len());
+    for (expected, recovered) in spectral.bins.iter().zip(amps.iter()) {
+        assert!((expected - recovered).abs() <= 1e-6);
+    }
+    if let Some(expected_sigmas) = spectral.sigma.as_ref() {
+        for (expected, recovered) in expected_sigmas.iter().zip(sigmas.iter()) {
+            assert!((expected - recovered).abs() <= 1e-6);
+        }
+    }
+}
+>>>>>>> theirs

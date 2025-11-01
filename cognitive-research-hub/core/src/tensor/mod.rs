@@ -10,6 +10,10 @@ mod layout;
 mod ops;
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
+=======
+mod quant;
+>>>>>>> theirs
 =======
 mod quant;
 >>>>>>> theirs
@@ -23,9 +27,12 @@ pub use layout::{Shape2D, Stride2D};
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 pub use ops::{add_rgb, map_rgb_inplace, mask_inject, mean_rgb, mix_rgb, sum_fixed_rgb};
 pub use spectral::SpectralTensor;
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 =======
@@ -36,11 +43,14 @@ pub use ops::{
 };
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 pub use spectral::{
     add_gaussian_kernel, bin_freq, spectral_centroid, spectral_energy, SpectralTensor,
 };
 >>>>>>> theirs
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 pub use quant::{dequantize_scalar, quantize_scalar, FixedAccumulator, DEFAULT_FIXED_SCALE};
@@ -48,6 +58,9 @@ pub use spectral::{
     add_gaussian_kernel, bin_freq, spectral_centroid, spectral_energy, SpectralTensor,
 };
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
