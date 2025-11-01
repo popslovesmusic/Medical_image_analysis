@@ -11,6 +11,7 @@
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 use super::{channel_offset, layout::clamp_unit, ChromaticTensor};
 use crate::{Fx, Qx};
 
@@ -18,6 +19,8 @@ use crate::{Fx, Qx};
 use super::chromatic::delta_hsl;
 use super::{channel_offset, chromatic::rgb_to_hsl, layout::clamp_unit, ChromaticTensor};
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 =======
@@ -38,6 +41,9 @@ use super::{
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -62,6 +68,9 @@ pub struct GradRGB {
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -158,8 +167,11 @@ pub fn sum_fixed_rgb(t: &ChromaticTensor, scale: i32) -> [Qx; 3] {
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
     let mut accum = [0i64; 3];
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 =======
@@ -177,6 +189,9 @@ pub fn sum_fixed_rgb(t: &ChromaticTensor, scale: i32) -> [Qx; 3] {
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -190,6 +205,7 @@ pub fn sum_fixed_rgb(t: &ChromaticTensor, scale: i32) -> [Qx; 3] {
         for col in 0..t.shape.w {
             let offset = channel_offset(t.stride, row, col, 0);
             for channel in 0..3 {
+<<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
@@ -213,6 +229,8 @@ pub fn sum_fixed_rgb(t: &ChromaticTensor, scale: i32) -> [Qx; 3] {
 >>>>>>> theirs
 =======
 >>>>>>> theirs
+=======
+>>>>>>> theirs
                 let value = t.rgb[offset + channel];
                 let quantized = quantize_scalar(value, scale);
                 accum[channel].accumulate_quantized(quantized);
@@ -225,6 +243,9 @@ pub fn sum_fixed_rgb(t: &ChromaticTensor, scale: i32) -> [Qx; 3] {
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -289,6 +310,9 @@ pub fn grad_hsl_loss(a_rgb: (Fx, Fx, Fx), b_hsl: (Fx, Fx, Fx)) -> GradRGB {
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs

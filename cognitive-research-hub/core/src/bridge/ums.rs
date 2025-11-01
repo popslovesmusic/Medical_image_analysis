@@ -8,7 +8,11 @@ use crate::{
 
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 use super::{hue_to_bin_weights, map_luminance_to_sigma, mean_hsl, normalize_hue};
+=======
+use super::{hue_to_bin_weights, map_luminance_to_sigma, mean_hsl, normalize_hue, EPSILON};
+>>>>>>> theirs
 =======
 use super::{hue_to_bin_weights, map_luminance_to_sigma, mean_hsl, normalize_hue, EPSILON};
 >>>>>>> theirs
@@ -27,7 +31,10 @@ pub struct UnifiedModalitySpace {
 
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 /// Half-precision (f16) encoded representation of a Unified Modality Space vector.
@@ -42,6 +49,9 @@ const F16_MAX: Fx = 65_504.0;
 const F16_MIN: Fx = -65_504.0;
 
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -55,7 +65,10 @@ impl UnifiedModalitySpace {
 
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
     /// Creates a UMS vector from an explicit array.
@@ -64,6 +77,9 @@ impl UnifiedModalitySpace {
     }
 
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -105,7 +121,10 @@ impl UnifiedModalitySpace {
     }
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 
@@ -114,6 +133,9 @@ impl UnifiedModalitySpace {
         UMS_DIM
     }
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -127,7 +149,10 @@ impl Default for UnifiedModalitySpace {
 
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 impl CompressedUnifiedModality {
@@ -157,6 +182,9 @@ impl CompressedUnifiedModality {
 }
 
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -282,7 +310,10 @@ pub fn reconstruct_spectral_from_ums(
 
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 /// Compresses a Unified Modality Space vector using μ/σ normalisation and f16 payloads.
@@ -312,6 +343,9 @@ pub fn decompress_ums(compressed: &CompressedUnifiedModality) -> UnifiedModality
 }
 
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -434,7 +468,10 @@ fn populate_temporal(ums: &mut UnifiedModalitySpace, spectral: &SpectralTensor) 
 }
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 
@@ -533,6 +570,9 @@ fn f16_bits_to_f32(bits: u16) -> Fx {
     Fx::from_bits(sign_bits | exponent_bits | mantissa_bits)
 }
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs

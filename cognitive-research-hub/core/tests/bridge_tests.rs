@@ -9,6 +9,7 @@ use chromatic_core::{
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
     bridge::{decode_to_chromatic, encode_to_spectral, record_seam_weights, validate_round_trip},
     tensor::{delta_hsl, hsl_to_rgb, rgb_to_hsl, ChromaticTensor, Shape2D},
 =======
@@ -22,6 +23,8 @@ use chromatic_core::{
 =======
 =======
 >>>>>>> theirs
+=======
+>>>>>>> theirs
     bridge::{
         compress_ums, decode_to_chromatic, decompress_ums, encode_to_spectral, project_to_ums,
         reconstruct_chromatic_from_ums, reconstruct_spectral_from_ums, record_seam_weights,
@@ -30,6 +33,9 @@ use chromatic_core::{
     tensor::{delta_hsl, hsl_to_rgb, normalize_hue, rgb_to_hsl, ChromaticTensor, Shape2D},
     UMS_TEMPORAL_OFFSET,
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -102,7 +108,10 @@ fn encoding_distributes_energy_across_bins() {
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 =======
@@ -134,7 +143,10 @@ fn compute_mean_hsl(chromatic: &ChromaticTensor) -> (f32, f32, f32) {
 
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 fn compute_stats(values: &[f32]) -> (f32, f32) {
@@ -155,6 +167,9 @@ fn compute_stats(values: &[f32]) -> (f32, f32) {
 }
 
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -212,8 +227,11 @@ fn ums_projection_recovers_spectral_bins() {
 }
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 >>>>>>> theirs
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 
@@ -251,6 +269,9 @@ fn ums_compression_round_trip_within_tolerance() {
     );
 }
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs

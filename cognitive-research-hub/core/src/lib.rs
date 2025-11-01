@@ -9,6 +9,7 @@
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
 pub mod bridge;
 >>>>>>> theirs
@@ -21,6 +22,11 @@ pub mod bridge;
 =======
 pub mod bridge;
 pub mod diagnostics;
+>>>>>>> theirs
+=======
+pub mod bridge;
+pub mod diagnostics;
+pub mod dream;
 >>>>>>> theirs
 pub mod tensor;
 
@@ -36,7 +42,10 @@ pub const SPECTRAL_CHANNELS: usize = 3;
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 =======
@@ -61,6 +70,9 @@ pub const UMS_TEMPORAL_BANDS: usize = UMS_DIM - UMS_TEMPORAL_OFFSET;
 
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
