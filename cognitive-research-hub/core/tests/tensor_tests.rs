@@ -7,12 +7,19 @@
 
 use chromatic_core::tensor::{
 <<<<<<< ours
+<<<<<<< ours
     add_rgb, delta_hsl, hsl_to_rgb, map_rgb_inplace, mask_inject, mean_rgb, mix_rgb, normalize_hue,
     rgb_to_hsl, sum_fixed_rgb, ChromaticTensor, Shape2D,
 =======
     add_gaussian_kernel, add_rgb, bin_freq, delta_hsl, grad_hsl_loss, grad_mix, hsl_to_rgb,
     map_rgb_inplace, mask_inject, mean_rgb, mix_rgb, normalize_hue, rgb_to_hsl, spectral_centroid,
     spectral_energy, sum_fixed_rgb, ChromaticTensor, Shape2D, SpectralTensor,
+>>>>>>> theirs
+=======
+    add_gaussian_kernel, add_rgb, bin_freq, delta_hsl, dequantize_scalar, grad_hsl_loss, grad_mix,
+    hsl_to_rgb, map_rgb_inplace, mask_inject, mean_rgb, mix_rgb, normalize_hue, quantize_scalar,
+    rgb_to_hsl, spectral_centroid, spectral_energy, sum_fixed_rgb, ChromaticTensor,
+    FixedAccumulator, Shape2D, SpectralTensor, DEFAULT_FIXED_SCALE,
 >>>>>>> theirs
 };
 
@@ -95,7 +102,10 @@ fn fixed_point_sum_is_stable() {
     }
 }
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 
 #[test]
 fn spectral_utilities_behave() {
@@ -136,5 +146,50 @@ fn grad_hsl_loss_vanishes_at_target() {
     assert!(grad.dr.abs() < 1e-3);
     assert!(grad.dg.abs() < 1e-3);
     assert!(grad.db.abs() < 1e-3);
+}
+<<<<<<< ours
+>>>>>>> theirs
+=======
+
+#[test]
+fn quantization_roundtrip_within_tolerance() {
+    let scale = DEFAULT_FIXED_SCALE;
+    let value = 0.347_812_5;
+    let quantized = quantize_scalar(value, scale);
+    let restored = dequantize_scalar(quantized, scale);
+    let tolerance = 1.0 / (scale as f32);
+    assert!((restored - value).abs() <= tolerance);
+}
+
+#[test]
+fn fixed_accumulator_is_order_invariant() {
+    let scale = DEFAULT_FIXED_SCALE;
+    let values = [0.1_f32, -0.25, 0.4, -0.05, 0.2];
+    let mut acc_forward = FixedAccumulator::new(scale);
+    for &v in &values {
+        acc_forward.accumulate(v);
+    }
+
+    let mut acc_reverse = FixedAccumulator::new(scale);
+    for &v in values.iter().rev() {
+        acc_reverse.accumulate(v);
+    }
+
+    assert_eq!(
+        acc_forward.finish_quantized(),
+        acc_reverse.finish_quantized()
+    );
+    assert!((acc_forward.finish() - acc_reverse.finish()).abs() < 1e-6);
+
+    let mut acc_merge = FixedAccumulator::new(scale);
+    let (left, right) = values.split_at(values.len() / 2);
+    let mut acc_left = FixedAccumulator::new(scale);
+    acc_left.accumulate_iter(left.iter().copied());
+    let mut acc_right = FixedAccumulator::new(scale);
+    acc_right.accumulate_iter(right.iter().copied());
+    acc_merge.merge(&acc_left);
+    acc_merge.merge(&acc_right);
+
+    assert_eq!(acc_forward.finish_quantized(), acc_merge.finish_quantized());
 }
 >>>>>>> theirs

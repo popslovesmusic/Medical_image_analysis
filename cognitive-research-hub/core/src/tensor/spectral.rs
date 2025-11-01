@@ -8,7 +8,10 @@
 use crate::Fx;
 
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 /// Computes the center frequency of the `k`-th bin.
 ///
 /// For linear layouts the frequency advances in constant steps `f_res`.
@@ -27,6 +30,9 @@ pub fn bin_freq(k: usize, f_min: Fx, f_res: Fx, log_scale: bool) -> Fx {
     }
 }
 
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 /// Spectral tensor capturing frequency-domain amplitudes and optional bandwidths.
 #[derive(Clone, Debug)]
@@ -66,9 +72,12 @@ impl SpectralTensor {
     /// Returns the energy of the spectrum via deterministic accumulation.
     pub fn energy(&self) -> Fx {
 <<<<<<< ours
+<<<<<<< ours
         self.bins.iter().fold(0.0, |acc, &v| acc + v.abs())
     }
 =======
+=======
+>>>>>>> theirs
         spectral_energy(self)
     }
 }
@@ -102,5 +111,8 @@ pub fn spectral_centroid(spec: &SpectralTensor) -> Fx {
         num += freq * amp.abs();
     }
     num / total
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 }

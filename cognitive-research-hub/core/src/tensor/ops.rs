@@ -6,12 +6,23 @@
 //! - `cognitive-research-hub/core/src/tensor/spec.md`
 
 <<<<<<< ours
+<<<<<<< ours
 use super::{channel_offset, layout::clamp_unit, ChromaticTensor};
 use crate::{Fx, Qx};
 
 =======
 use super::chromatic::delta_hsl;
 use super::{channel_offset, chromatic::rgb_to_hsl, layout::clamp_unit, ChromaticTensor};
+=======
+use super::chromatic::delta_hsl;
+use super::{
+    channel_offset,
+    chromatic::rgb_to_hsl,
+    layout::clamp_unit,
+    quant::{quantize_scalar, FixedAccumulator},
+    ChromaticTensor,
+};
+>>>>>>> theirs
 use crate::{Fx, Qx};
 
 /// Gradient components for RGB triples.
@@ -22,6 +33,9 @@ pub struct GradRGB {
     pub db: Fx,
 }
 
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 /// Performs a deterministic linear blend between two chromatic tensors.
 pub fn mix_rgb(out: &mut ChromaticTensor, a: &ChromaticTensor, b: &ChromaticTensor, alpha: Fx) {
@@ -103,11 +117,20 @@ pub fn mean_rgb(t: &ChromaticTensor) -> [Fx; 3] {
 /// Performs a fixed-point deterministic reduction over the RGB channels.
 pub fn sum_fixed_rgb(t: &ChromaticTensor, scale: i32) -> [Qx; 3] {
     assert!(scale > 0, "scale must be positive");
+<<<<<<< ours
     let mut accum = [0i64; 3];
+=======
+    let mut accum = [
+        FixedAccumulator::new(scale),
+        FixedAccumulator::new(scale),
+        FixedAccumulator::new(scale),
+    ];
+>>>>>>> theirs
     for row in 0..t.shape.h {
         for col in 0..t.shape.w {
             let offset = channel_offset(t.stride, row, col, 0);
             for channel in 0..3 {
+<<<<<<< ours
                 let value = (t.rgb[offset + channel] * scale as Fx).round() as i64;
                 accum[channel] += value;
             }
@@ -117,6 +140,16 @@ pub fn sum_fixed_rgb(t: &ChromaticTensor, scale: i32) -> [Qx; 3] {
 }
 <<<<<<< ours
 =======
+=======
+                let value = t.rgb[offset + channel];
+                let quantized = quantize_scalar(value, scale);
+                accum[channel].accumulate_quantized(quantized);
+            }
+        }
+    }
+    accum.map(FixedAccumulator::finish_quantized)
+}
+>>>>>>> theirs
 
 /// Gradients of the mix operation w.r.t. inputs and mixing coefficient.
 pub fn grad_mix(
@@ -167,4 +200,7 @@ pub fn grad_hsl_loss(a_rgb: (Fx, Fx, Fx), b_hsl: (Fx, Fx, Fx)) -> GradRGB {
         db: grad[2],
     }
 }
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
