@@ -77,8 +77,8 @@ Rule	Description
 All numeric fields must be typed as floats or ints	no strings
 All logs use UTC ISO-8601 timestamps	enforced by time_utils.py
 Field order is canonical	defined alphabetically for hashing
-Logs are stored as .jsonl (one JSON object per line)	
-MD5 checksum of full log file is written to experiment_manifest.md	
+Logs are stored as .jsonl (one JSON object per line)
+MD5 checksum of full log file is written to experiment_manifest.md
 3. experiment_manifest.md
 
 Acts as the single source of truth for all experiments.
@@ -156,9 +156,9 @@ Provides the boilerplate format for new experiment reports.
 
 # Experiment Report — {{RUN_ID}}
 
-**Phase:** {{PHASE}}  
-**Config:** `{{CONFIG_PATH}}`  
-**Date:** {{DATE}}  
+**Phase:** {{PHASE}}
+**Config:** `{{CONFIG_PATH}}`
+**Date:** {{DATE}}
 **Commit:** {{COMMIT_HASH}}
 
 ---
@@ -185,7 +185,7 @@ Short description of the experiment’s purpose.
 - ΔColor within 1e-3 tolerance
 
 ## Files
-- `metrics.json`  
+- `metrics.json`
 - `coherence_plot.png`
 
 7. references/

@@ -1,161 +1,328 @@
 {
     "project": "Medical_image_analysis",
-    "generated_at": "2025-10-31T21:59:14.185611",
+    "generated_at": "2025-11-01T00:22:34.498387",
     "structure": [
         {
             "path": "E:\\Medical_image_analysis",
             "type": "MISC",
             "files": [
+                "AGENTS.md",
                 "dir.py",
-                "project_structure_inspector.py"
+                "initialize_project_structure.py",
+                "patch.diff",
+                "project_structure.json",
+                "project_structure_inspector.py",
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\.claude",
+            "type": "MISC",
+            "files": [
+                "settings.local.json"
             ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub",
             "type": "MISC",
             "files": [
-                "AGENTS.md",
-                "root-spec.md"
+                "spec.md"
             ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core",
             "type": "CORE_MODULE",
             "files": [
-                "core-spec.md"
+                "spec.md"
             ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src",
             "type": "MISC",
             "files": [
-                "src-spec.md"
+                "spec.md"
             ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\bridge",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\diagnostics",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\diagnostics\\contimuity",
+            "type": "MISC",
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\diagnostics\\metrics",
+            "type": "MISC",
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\diagnostics\\visual",
+            "type": "MISC",
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\dream",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\meta",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\meta\\chronicle",
+            "type": "MISC",
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\src\\tensor",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\tests",
             "type": "TESTS",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\tests\\bridge_tests",
+            "type": "TESTS",
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\tests\\diagnostics_tests",
+            "type": "TESTS",
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\tests\\dream_tests",
+            "type": "TESTS",
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\core\\tests\\tensor_tests",
+            "type": "TESTS",
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\scripts",
             "type": "SCRIPTS",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer",
             "type": "TRAINER_MODULE",
-            "files": []
+            "files": [
+                "spec.md",
+                "specs.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\config",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\docs",
             "type": "DOCUMENTATION",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\src",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\src\\model",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\src\\reports",
+            "type": "MISC",
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\src\\tokenizer",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\src\\training",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\cognitive-research-hub\\trainer\\src\\validator",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\data",
             "type": "DATASETS",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\data\\processed",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\data\\raw",
+            "type": "MISC",
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\data\\samples",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\docs",
             "type": "DOCUMENTATION",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\docs\\diagrams",
+            "type": "MISC",
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\experiments",
             "type": "EXPERIMENTS",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\experiments\\archive",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\experiments\\archive\\restoration",
+            "type": "MISC",
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\experiments\\configs",
+            "type": "MISC",
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\experiments\\results",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\experiments\\results\\comparisons",
+            "type": "MISC",
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\notebooks",
             "type": "NOTEBOOKS",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\tests",
             "type": "TESTS",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
         },
         {
             "path": "E:\\Medical_image_analysis\\tests\\fixtures",
             "type": "MISC",
-            "files": []
+            "files": [
+                "spec.md"
+            ]
+        },
+        {
+            "path": "E:\\Medical_image_analysis\\tests\\logs",
+            "type": "MISC",
+            "files": [
+                "spec.md"
+            ]
         }
     ]
 }

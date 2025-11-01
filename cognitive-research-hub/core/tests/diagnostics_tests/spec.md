@@ -1,12 +1,3 @@
-# Specification: diagnostics_tests
-
-**Module Path:** `cognitive-research-hub/core/tests/diagnostics_tests`
-
-This placeholder spec.md file is automatically generated.
-Replace this with the full specification for this module.
-
----
-✅ Created by initialize_project_structure.py
 core/tests/diagnostics_tests/diagnostics-tests-spec.md
 Purpose
 

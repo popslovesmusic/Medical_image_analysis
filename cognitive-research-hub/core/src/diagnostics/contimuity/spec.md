@@ -34,11 +34,11 @@ plan_temporal_action()	(trend: &TrendModel) -> Option<TemporalAction>	Maps class
 verify_trend_determinism()	(a: &TrendModel, b: &TrendModel) -> bool	Ensures identical classification across re-runs.
 Classification Rules
 Class ID	Category	Condition
-0	Stable	
+0	Stable
 1	Improvement	slope > ε₁ and oscillation < ε₃
 -1	Degradation	slope < −ε₁ and stdev > ε₂
 2	Oscillatory	oscillation ≥ ε₃
-3	Divergent	
+3	Divergent
 
 Default tolerance set:
 ε₁ = 0.01, ε₂ = 0.005, ε₃ = 0.02, ε₄ = 0.05, ε₅ = 0.03.

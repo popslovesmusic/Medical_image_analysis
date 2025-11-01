@@ -1,12 +1,3 @@
-# Specification: bridge_tests
-
-**Module Path:** `cognitive-research-hub/core/tests/bridge_tests`
-
-This placeholder spec.md file is automatically generated.
-Replace this with the full specification for this module.
-
----
-✅ Created by initialize_project_structure.py
 core/tests/bridge_tests/bridge-tests-spec.md
 Purpose
 
@@ -38,7 +29,7 @@ core/tests/bridge_tests/
 
 Core Tests
 Test	Goal	Pass Criterion
-test_hue_frequency.rs	Verify the hue→frequency mapping 
+test_hue_frequency.rs	Verify the hue→frequency mapping
 𝑓
 =
 𝑓
@@ -69,7 +60,7 @@ min
 H/(2π)⋅octaves
  is continuous and reversible across 0 ↔ 2π.	Δf/f ≤ 1e-8; no discontinuity at wrap.
 test_roundtrip.rs	Confirm full ChromaticTensor → SpectralTensor → ChromaticTensor round-trip accuracy.	Mean ΔRGB ≤ 1e-3 per channel.
-test_amplitude_pan.rs	Check deterministic mapping 
+test_amplitude_pan.rs	Check deterministic mapping
 𝐴
 =
 𝑆

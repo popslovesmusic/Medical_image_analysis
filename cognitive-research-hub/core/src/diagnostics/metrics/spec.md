@@ -1,12 +1,3 @@
-# Specification: metrics
-
-**Module Path:** `cognitive-research-hub/core/src/diagnostics/metrics`
-
-This placeholder spec.md file is automatically generated.
-Replace this with the full specification for this module.
-
----
-✅ Created by initialize_project_structure.py
 core/src/diagnostics/metrics/metrics-spec.md
 Module Purpose
 
@@ -209,7 +200,7 @@ i
 	​
 
 
-Target: 
+Target:
 ∣
 𝐸
 drift
@@ -284,7 +275,7 @@ trainer/validator	read-only	Performs energy drift and color delta tests.
 Validation & Testing
 Test ID	Description	Pass Condition
 T-M01	HSL delta round-trip	ΔE ≤ 1 × 10⁻³
-T-M02	Energy conservation under FFT	
+T-M02	Energy conservation under FFT
 T-M03	Phase coherence repeatability	Std ≤ 1 × 10⁻⁴ across 3 runs
 T-M04	Continuity classification stability	Class unchanged under ±1 % noise
 T-M05	Determinism regression	Bitwise equality of serialized snapshots

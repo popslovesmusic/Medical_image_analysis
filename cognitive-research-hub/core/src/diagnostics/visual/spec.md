@@ -1,12 +1,3 @@
-# Specification: visual
-
-**Module Path:** `cognitive-research-hub/core/src/diagnostics/visual`
-
-This placeholder spec.md file is automatically generated.
-Replace this with the full specification for this module.
-
----
-✅ Created by initialize_project_structure.py
 core/src/diagnostics/visual/visual-spec.md
 Purpose
 
@@ -99,7 +90,7 @@ t
 	​
 
 
-where 
+where
 𝐶
 𝑡
 C

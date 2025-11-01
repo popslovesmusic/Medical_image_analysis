@@ -1,12 +1,3 @@
-# Specification: meta
-
-**Module Path:** `cognitive-research-hub/core/src/meta`
-
-This placeholder spec.md file is automatically generated.
-Replace this with the full specification for this module.
-
----
-✅ Created by initialize_project_structure.py
 core/src/meta/meta-spec.md
 Purpose
 
