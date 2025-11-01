@@ -7,6 +7,10 @@
 
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
+=======
+pub mod bridge;
+>>>>>>> theirs
 =======
 pub mod bridge;
 >>>>>>> theirs
@@ -25,7 +29,10 @@ pub const HUE_CATEGORIES: usize = 12;
 pub const SPECTRAL_CHANNELS: usize = 3;
 
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 /// Unified Modality Space total dimensionality (spectral + chromatic + temporal).
 pub const UMS_DIM: usize = 512;
 
@@ -44,6 +51,9 @@ pub const UMS_TEMPORAL_OFFSET: usize = UMS_CHROMATIC_OFFSET + UMS_CHROMATIC_BAND
 /// Number of temporal slots currently reserved within the Unified Modality Space.
 pub const UMS_TEMPORAL_BANDS: usize = UMS_DIM - UMS_TEMPORAL_OFFSET;
 
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 /// Convenience alias for floating point operations within the core.
 pub type Fx = f32;

@@ -15,6 +15,7 @@ use std::f32::consts::PI;
 use crate::{tensor::*, Fx, HUE_CATEGORIES};
 
 <<<<<<< ours
+<<<<<<< ours
 /// Base frequency (Hz) used for hue→frequency mapping.
 const BASE_FREQUENCY: Fx = 27.5; // A0 reference
 /// Octave span encoded by the bridge.
@@ -33,6 +34,13 @@ mod ums;
 pub use ums::{
     project_to_ums, reconstruct_chromatic_from_ums, reconstruct_spectral_from_ums,
     UnifiedModalitySpace,
+=======
+mod ums;
+
+pub use ums::{
+    compress_ums, decompress_ums, project_to_ums, reconstruct_chromatic_from_ums,
+    reconstruct_spectral_from_ums, CompressedUnifiedModality, UnifiedModalitySpace,
+>>>>>>> theirs
 };
 
 /// Base frequency (Hz) used for hue→frequency mapping.
@@ -47,6 +55,9 @@ pub(crate) const MAX_SIGMA: Fx = 48.0;
 const ROUND_TRIP_TOLERANCE: Fx = 1e-3;
 /// Epsilon used to guard against divisions by zero.
 pub(crate) const EPSILON: Fx = 1e-6;
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 
 fn ratio_per_bin() -> Fx {
@@ -55,7 +66,11 @@ fn ratio_per_bin() -> Fx {
 }
 
 <<<<<<< ours
+<<<<<<< ours
 fn map_luminance_to_sigma(l: Fx) -> Fx {
+=======
+pub(crate) fn map_luminance_to_sigma(l: Fx) -> Fx {
+>>>>>>> theirs
 =======
 pub(crate) fn map_luminance_to_sigma(l: Fx) -> Fx {
 >>>>>>> theirs
@@ -64,7 +79,11 @@ pub(crate) fn map_luminance_to_sigma(l: Fx) -> Fx {
 }
 
 <<<<<<< ours
+<<<<<<< ours
 fn sigma_to_luminance(sigma: Fx) -> Fx {
+=======
+pub(crate) fn sigma_to_luminance(sigma: Fx) -> Fx {
+>>>>>>> theirs
 =======
 pub(crate) fn sigma_to_luminance(sigma: Fx) -> Fx {
 >>>>>>> theirs
@@ -73,7 +92,11 @@ pub(crate) fn sigma_to_luminance(sigma: Fx) -> Fx {
 }
 
 <<<<<<< ours
+<<<<<<< ours
 fn hue_to_bin_weights(hue: Fx) -> (usize, Fx, usize, Fx) {
+=======
+pub(crate) fn hue_to_bin_weights(hue: Fx) -> (usize, Fx, usize, Fx) {
+>>>>>>> theirs
 =======
 pub(crate) fn hue_to_bin_weights(hue: Fx) -> (usize, Fx, usize, Fx) {
 >>>>>>> theirs
@@ -108,7 +131,11 @@ fn hue_from_frequency(freq: Fx) -> Fx {
 }
 
 <<<<<<< ours
+<<<<<<< ours
 fn mean_hsl(chromatic: &ChromaticTensor) -> (Fx, Fx, Fx) {
+=======
+pub(crate) fn mean_hsl(chromatic: &ChromaticTensor) -> (Fx, Fx, Fx) {
+>>>>>>> theirs
 =======
 pub(crate) fn mean_hsl(chromatic: &ChromaticTensor) -> (Fx, Fx, Fx) {
 >>>>>>> theirs

@@ -6,7 +6,11 @@ use crate::{
     UMS_TEMPORAL_BANDS, UMS_TEMPORAL_OFFSET,
 };
 
+<<<<<<< ours
 use super::{hue_to_bin_weights, map_luminance_to_sigma, mean_hsl, normalize_hue};
+=======
+use super::{hue_to_bin_weights, map_luminance_to_sigma, mean_hsl, normalize_hue, EPSILON};
+>>>>>>> theirs
 
 const SPECTRAL_AMPLITUDE_BANDS: usize = UMS_SPECTRAL_BANDS / 2;
 const SPECTRAL_SIGMA_OFFSET: usize = SPECTRAL_AMPLITUDE_BANDS;
@@ -17,6 +21,20 @@ pub struct UnifiedModalitySpace {
     data: [Fx; UMS_DIM],
 }
 
+<<<<<<< ours
+=======
+/// Half-precision (f16) encoded representation of a Unified Modality Space vector.
+#[derive(Clone, Debug, PartialEq)]
+pub struct CompressedUnifiedModality {
+    data: [u16; UMS_DIM],
+    mean: Fx,
+    std: Fx,
+}
+
+const F16_MAX: Fx = 65_504.0;
+const F16_MIN: Fx = -65_504.0;
+
+>>>>>>> theirs
 impl UnifiedModalitySpace {
     /// Creates a zero-initialised UMS vector.
     pub fn new() -> Self {
@@ -25,6 +43,14 @@ impl UnifiedModalitySpace {
         }
     }
 
+<<<<<<< ours
+=======
+    /// Creates a UMS vector from an explicit array.
+    pub fn from_array(data: [Fx; UMS_DIM]) -> Self {
+        Self { data }
+    }
+
+>>>>>>> theirs
     /// Returns the raw slice backing the UMS vector.
     pub fn as_slice(&self) -> &[Fx] {
         &self.data
@@ -61,6 +87,14 @@ impl UnifiedModalitySpace {
         let end = start.saturating_add(UMS_CHROMATIC_BANDS).min(UMS_DIM);
         &self.data[start..end]
     }
+<<<<<<< ours
+=======
+
+    /// Returns the fixed dimensionality of the UMS vector.
+    pub fn len(&self) -> usize {
+        UMS_DIM
+    }
+>>>>>>> theirs
 }
 
 impl Default for UnifiedModalitySpace {
@@ -69,6 +103,35 @@ impl Default for UnifiedModalitySpace {
     }
 }
 
+<<<<<<< ours
+=======
+impl CompressedUnifiedModality {
+    /// Returns the stored global mean used for μ/σ normalisation.
+    pub fn mean(&self) -> Fx {
+        self.mean
+    }
+
+    /// Returns the stored global standard deviation used for μ/σ normalisation.
+    pub fn std(&self) -> Fx {
+        self.std
+    }
+
+    /// Returns the underlying half-precision payload slice.
+    pub fn data(&self) -> &[u16] {
+        &self.data
+    }
+
+    /// Reconstructs a Unified Modality Space vector from the compressed payload.
+    pub fn decompress(&self) -> UnifiedModalitySpace {
+        let mut data = [0.0; UMS_DIM];
+        for (idx, bits) in self.data.iter().copied().enumerate() {
+            data[idx] = f16_bits_to_f32(bits) * self.std + self.mean;
+        }
+        UnifiedModalitySpace::from_array(data)
+    }
+}
+
+>>>>>>> theirs
 /// Projects chromatic and spectral tensors into the Unified Modality Space.
 pub fn project_to_ums(
     chromatic: &ChromaticTensor,
@@ -189,6 +252,35 @@ pub fn reconstruct_spectral_from_ums(
     (amplitudes, sigmas)
 }
 
+<<<<<<< ours
+=======
+/// Compresses a Unified Modality Space vector using μ/σ normalisation and f16 payloads.
+pub fn compress_ums(ums: &UnifiedModalitySpace) -> CompressedUnifiedModality {
+    let (mean, std) = compute_moments(ums.as_slice());
+    let adjusted_std = std.max(EPSILON);
+    let normaliser = 1.0 / adjusted_std;
+    let mut data = [0u16; UMS_DIM];
+    for (idx, value) in ums.as_slice().iter().copied().enumerate() {
+        let mut normalised = (value - mean) * normaliser;
+        if normalised.is_nan() || normalised.is_infinite() {
+            normalised = 0.0;
+        }
+        let clamped = normalised.clamp(F16_MIN, F16_MAX);
+        data[idx] = f32_to_f16_bits(clamped);
+    }
+    CompressedUnifiedModality {
+        data,
+        mean,
+        std: adjusted_std,
+    }
+}
+
+/// Decompresses a Unified Modality Space vector from its μ/σ normalised f16 form.
+pub fn decompress_ums(compressed: &CompressedUnifiedModality) -> UnifiedModalitySpace {
+    compressed.decompress()
+}
+
+>>>>>>> theirs
 fn populate_spectral(ums: &mut UnifiedModalitySpace, spectral: &SpectralTensor) {
     let bins = spectral.bins.len();
     assert!(bins > 0, "spectral tensor requires at least one bin");
@@ -306,3 +398,101 @@ fn populate_temporal(ums: &mut UnifiedModalitySpace, spectral: &SpectralTensor) 
     let start = UMS_TEMPORAL_OFFSET.min(UMS_DIM.saturating_sub(1));
     ums.data[start] = energy;
 }
+<<<<<<< ours
+=======
+
+fn compute_moments(values: &[Fx]) -> (Fx, Fx) {
+    if values.is_empty() {
+        return (0.0, 0.0);
+    }
+    let mut sum = 0.0;
+    for &value in values {
+        sum += value;
+    }
+    let mean = sum / values.len() as Fx;
+    let mut variance_acc = 0.0;
+    for &value in values {
+        let delta = value - mean;
+        variance_acc += delta * delta;
+    }
+    let variance = variance_acc / values.len() as Fx;
+    (mean, variance.sqrt())
+}
+
+fn f32_to_f16_bits(value: Fx) -> u16 {
+    let bits = value.to_bits();
+    let sign = ((bits >> 16) & 0x8000) as u16;
+    let exponent = ((bits >> 23) & 0xff) as i32;
+    let mantissa = bits & 0x7fffff;
+
+    if exponent == 0xff {
+        return if mantissa == 0 {
+            sign | 0x7c00
+        } else {
+            sign | 0x7e00
+        };
+    }
+
+    let mut exp16 = exponent - 127 + 15;
+    if exp16 >= 0x1f {
+        return sign | 0x7c00;
+    }
+    if exp16 <= 0 {
+        if exp16 < -10 {
+            return sign;
+        }
+        let mantissa = mantissa | 0x800000;
+        let shift = 14 - exp16;
+        let mut half = (mantissa >> shift) as u16;
+        if ((mantissa >> (shift - 1)) & 0x1) != 0 {
+            half = half.saturating_add(1);
+        }
+        return sign | half;
+    }
+
+    let mut half_mant = (mantissa >> 13) as u16;
+    if ((mantissa >> 12) & 0x1) != 0 {
+        half_mant = half_mant.saturating_add(1);
+        if half_mant & 0x0400 != 0 {
+            half_mant = 0;
+            exp16 += 1;
+            if exp16 >= 0x1f {
+                return sign | 0x7c00;
+            }
+        }
+    }
+    sign | ((exp16 as u16) << 10) | (half_mant & 0x03ff)
+}
+
+fn f16_bits_to_f32(bits: u16) -> Fx {
+    let sign = (bits >> 15) as u32;
+    let exponent = ((bits >> 10) & 0x1f) as i32;
+    let mantissa = (bits & 0x03ff) as u32;
+    let sign_bits = sign << 31;
+
+    if exponent == 0 {
+        if mantissa == 0 {
+            return Fx::from_bits(sign_bits);
+        }
+        let mut mant = mantissa;
+        let mut exp = -14;
+        while (mant & 0x0400) == 0 {
+            mant <<= 1;
+            exp -= 1;
+        }
+        mant &= 0x03ff;
+        let exponent_bits = ((exp + 127) as u32) << 23;
+        let mantissa_bits = mant << 13;
+        return Fx::from_bits(sign_bits | exponent_bits | mantissa_bits);
+    }
+
+    if exponent == 0x1f {
+        let mantissa_bits = mantissa << 13;
+        return Fx::from_bits(sign_bits | 0x7f80_0000 | mantissa_bits);
+    }
+
+    let exponent_bits = ((exponent + 112) as u32) << 23;
+    let mantissa_bits = mantissa << 13;
+    Fx::from_bits(sign_bits | exponent_bits | mantissa_bits)
+}
+>>>>>>> theirs

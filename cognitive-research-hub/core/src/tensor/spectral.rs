@@ -11,7 +11,10 @@ use crate::Fx;
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 =======
@@ -39,6 +42,9 @@ pub fn bin_freq(k: usize, f_min: Fx, f_res: Fx, log_scale: bool) -> Fx {
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -87,9 +93,12 @@ impl SpectralTensor {
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
         self.bins.iter().fold(0.0, |acc, &v| acc + v.abs())
     }
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 =======
@@ -132,6 +141,9 @@ pub fn spectral_centroid(spec: &SpectralTensor) -> Fx {
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs

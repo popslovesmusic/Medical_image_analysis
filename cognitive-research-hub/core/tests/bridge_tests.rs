@@ -7,12 +7,22 @@
 
 use chromatic_core::{
 <<<<<<< ours
+<<<<<<< ours
     bridge::{decode_to_chromatic, encode_to_spectral, record_seam_weights, validate_round_trip},
     tensor::{delta_hsl, hsl_to_rgb, rgb_to_hsl, ChromaticTensor, Shape2D},
 =======
     bridge::{
         decode_to_chromatic, encode_to_spectral, project_to_ums, reconstruct_chromatic_from_ums,
         reconstruct_spectral_from_ums, record_seam_weights, validate_round_trip,
+    },
+    tensor::{delta_hsl, hsl_to_rgb, normalize_hue, rgb_to_hsl, ChromaticTensor, Shape2D},
+    UMS_TEMPORAL_OFFSET,
+>>>>>>> theirs
+=======
+    bridge::{
+        compress_ums, decode_to_chromatic, decompress_ums, encode_to_spectral, project_to_ums,
+        reconstruct_chromatic_from_ums, reconstruct_spectral_from_ums, record_seam_weights,
+        validate_round_trip, CompressedUnifiedModality,
     },
     tensor::{delta_hsl, hsl_to_rgb, normalize_hue, rgb_to_hsl, ChromaticTensor, Shape2D},
     UMS_TEMPORAL_OFFSET,
@@ -84,7 +94,10 @@ fn encoding_distributes_energy_across_bins() {
         .all(|&sigma| sigma >= 4.0 && sigma <= 48.0));
 }
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 
 fn compute_mean_hsl(chromatic: &ChromaticTensor) -> (f32, f32, f32) {
     let mut sum_cos = 0.0f32;
@@ -110,6 +123,26 @@ fn compute_mean_hsl(chromatic: &ChromaticTensor) -> (f32, f32, f32) {
     (normalize_hue(avg_h), sum_s / count, sum_l / count)
 }
 
+<<<<<<< ours
+=======
+fn compute_stats(values: &[f32]) -> (f32, f32) {
+    if values.is_empty() {
+        return (0.0, 0.0);
+    }
+    let mut sum = 0.0;
+    for &v in values {
+        sum += v;
+    }
+    let mean = sum / values.len() as f32;
+    let mut var = 0.0;
+    for &v in values {
+        let delta = v - mean;
+        var += delta * delta;
+    }
+    (mean, (var / values.len() as f32).sqrt())
+}
+
+>>>>>>> theirs
 fn make_gradient_tensor(shape: Shape2D) -> ChromaticTensor {
     let mut rgb = Vec::with_capacity(shape.rgb_len());
     let total = shape.cell_count() as f32;
@@ -161,5 +194,42 @@ fn ums_projection_recovers_spectral_bins() {
             assert!((expected - recovered).abs() <= 1e-6);
         }
     }
+}
+<<<<<<< ours
+>>>>>>> theirs
+=======
+
+#[test]
+fn ums_compression_round_trip_within_tolerance() {
+    let shape = Shape2D::new(3, 4);
+    let chromatic = make_gradient_tensor(shape);
+    let spectral = encode_to_spectral(&chromatic);
+    let ums = project_to_ums(&chromatic, &spectral);
+
+    let compressed: CompressedUnifiedModality = compress_ums(&ums);
+    let restored = decompress_ums(&compressed);
+
+    let mut max_diff = 0.0f32;
+    for (expected, recovered) in ums.as_slice().iter().zip(restored.as_slice().iter()) {
+        let diff = (expected - recovered).abs();
+        if diff > max_diff {
+            max_diff = diff;
+        }
+    }
+    assert!(max_diff <= 2e-2, "max Δ = {}", max_diff);
+
+    let (orig_mean, orig_std) = compute_stats(ums.as_slice());
+    let (rest_mean, rest_std) = compute_stats(restored.as_slice());
+    let expected_std = orig_std.max(1e-6);
+
+    assert!((compressed.mean() - orig_mean).abs() <= 1e-6);
+    assert!((compressed.std() - expected_std).abs() <= 1e-6);
+    assert!((orig_mean - rest_mean).abs() <= 5e-3);
+    assert!((orig_std - rest_std).abs() <= 5e-3);
+
+    assert!(
+        compressed.data().iter().any(|&value| value != 0),
+        "compression should produce non-zero payload"
+    );
 }
 >>>>>>> theirs
