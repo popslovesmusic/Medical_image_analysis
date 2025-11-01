@@ -5,6 +5,10 @@
 //! - `cognitive-research-hub/core/spec.md`
 //! - `cognitive-research-hub/core/src/tensor/spec.md`
 
+<<<<<<< ours
+=======
+pub mod bridge;
+>>>>>>> theirs
 pub mod tensor;
 
 /// Core tensor dimensions enforced across the system (3×12×12×3).

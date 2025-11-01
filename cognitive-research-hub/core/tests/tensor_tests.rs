@@ -8,6 +8,7 @@
 use chromatic_core::tensor::{
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
     add_rgb, delta_hsl, hsl_to_rgb, map_rgb_inplace, mask_inject, mean_rgb, mix_rgb, normalize_hue,
     rgb_to_hsl, sum_fixed_rgb, ChromaticTensor, Shape2D,
 =======
@@ -16,10 +17,15 @@ use chromatic_core::tensor::{
     spectral_energy, sum_fixed_rgb, ChromaticTensor, Shape2D, SpectralTensor,
 >>>>>>> theirs
 =======
+=======
+>>>>>>> theirs
     add_gaussian_kernel, add_rgb, bin_freq, delta_hsl, dequantize_scalar, grad_hsl_loss, grad_mix,
     hsl_to_rgb, map_rgb_inplace, mask_inject, mean_rgb, mix_rgb, normalize_hue, quantize_scalar,
     rgb_to_hsl, spectral_centroid, spectral_energy, sum_fixed_rgb, ChromaticTensor,
     FixedAccumulator, Shape2D, SpectralTensor, DEFAULT_FIXED_SCALE,
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 };
 
@@ -103,7 +109,10 @@ fn fixed_point_sum_is_stable() {
 }
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 
@@ -148,8 +157,11 @@ fn grad_hsl_loss_vanishes_at_target() {
     assert!(grad.db.abs() < 1e-3);
 }
 <<<<<<< ours
+<<<<<<< ours
 >>>>>>> theirs
 =======
+=======
+>>>>>>> theirs
 
 #[test]
 fn quantization_roundtrip_within_tolerance() {
@@ -192,4 +204,7 @@ fn fixed_accumulator_is_order_invariant() {
 
     assert_eq!(acc_forward.finish_quantized(), acc_merge.finish_quantized());
 }
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs

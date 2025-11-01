@@ -7,6 +7,7 @@
 
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 use super::{channel_offset, layout::clamp_unit, ChromaticTensor};
 use crate::{Fx, Qx};
 
@@ -14,6 +15,8 @@ use crate::{Fx, Qx};
 use super::chromatic::delta_hsl;
 use super::{channel_offset, chromatic::rgb_to_hsl, layout::clamp_unit, ChromaticTensor};
 =======
+=======
+>>>>>>> theirs
 use super::chromatic::delta_hsl;
 use super::{
     channel_offset,
@@ -22,6 +25,9 @@ use super::{
     quant::{quantize_scalar, FixedAccumulator},
     ChromaticTensor,
 };
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 use crate::{Fx, Qx};
 
@@ -34,6 +40,9 @@ pub struct GradRGB {
 }
 
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -118,18 +127,25 @@ pub fn mean_rgb(t: &ChromaticTensor) -> [Fx; 3] {
 pub fn sum_fixed_rgb(t: &ChromaticTensor, scale: i32) -> [Qx; 3] {
     assert!(scale > 0, "scale must be positive");
 <<<<<<< ours
+<<<<<<< ours
     let mut accum = [0i64; 3];
 =======
+=======
+>>>>>>> theirs
     let mut accum = [
         FixedAccumulator::new(scale),
         FixedAccumulator::new(scale),
         FixedAccumulator::new(scale),
     ];
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
     for row in 0..t.shape.h {
         for col in 0..t.shape.w {
             let offset = channel_offset(t.stride, row, col, 0);
             for channel in 0..3 {
+<<<<<<< ours
 <<<<<<< ours
                 let value = (t.rgb[offset + channel] * scale as Fx).round() as i64;
                 accum[channel] += value;
@@ -141,6 +157,8 @@ pub fn sum_fixed_rgb(t: &ChromaticTensor, scale: i32) -> [Qx; 3] {
 <<<<<<< ours
 =======
 =======
+=======
+>>>>>>> theirs
                 let value = t.rgb[offset + channel];
                 let quantized = quantize_scalar(value, scale);
                 accum[channel].accumulate_quantized(quantized);
@@ -149,6 +167,9 @@ pub fn sum_fixed_rgb(t: &ChromaticTensor, scale: i32) -> [Qx; 3] {
     }
     accum.map(FixedAccumulator::finish_quantized)
 }
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 
 /// Gradients of the mix operation w.r.t. inputs and mixing coefficient.
@@ -201,6 +222,9 @@ pub fn grad_hsl_loss(a_rgb: (Fx, Fx, Fx), b_hsl: (Fx, Fx, Fx)) -> GradRGB {
     }
 }
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs

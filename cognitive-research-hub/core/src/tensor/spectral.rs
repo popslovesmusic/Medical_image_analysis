@@ -9,7 +9,10 @@ use crate::Fx;
 
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
 /// Computes the center frequency of the `k`-th bin.
@@ -31,6 +34,9 @@ pub fn bin_freq(k: usize, f_min: Fx, f_res: Fx, log_scale: bool) -> Fx {
 }
 
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
@@ -73,9 +79,12 @@ impl SpectralTensor {
     pub fn energy(&self) -> Fx {
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
         self.bins.iter().fold(0.0, |acc, &v| acc + v.abs())
     }
 =======
+=======
+>>>>>>> theirs
 =======
 >>>>>>> theirs
         spectral_energy(self)
@@ -112,6 +121,9 @@ pub fn spectral_centroid(spec: &SpectralTensor) -> Fx {
     }
     num / total
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs
