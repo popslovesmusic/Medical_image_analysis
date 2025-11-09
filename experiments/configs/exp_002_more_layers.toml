@@ -1,0 +1,14 @@
+# Experiment 002: More Layers
+# This config tests the baseline model with an
+# increased layer count.
+
+[engine]
+base_seed = 42
+batch_size = 32
+epochs = 10
+learning_rate = 0.001
+
+[model]
+model_type = "DeterministicCNN"
+layers = 8 # Increased from 5
+activation = "ReLU"

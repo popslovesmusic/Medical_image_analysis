@@ -1,0 +1,15 @@
+# Experiment 001: Baseline Model
+# This config uses the default settings to establish
+# a performance baseline.
+# See: `trainer/config/default.toml`
+
+[engine]
+base_seed = 42
+batch_size = 32
+epochs = 10
+learning_rate = 0.001
+
+[model]
+model_type = "DeterministicCNN"
+layers = 5
+activation = "ReLU"

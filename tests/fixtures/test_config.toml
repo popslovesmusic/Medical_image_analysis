@@ -1,0 +1,14 @@
+# Test Configuration File
+# This config is used by E2E tests for a "smoke test".
+# It is configured to run as fast as possible.
+
+[engine]
+base_seed = 42
+batch_size = 1
+epochs = 1
+learning_rate = 0.001
+
+[model]
+model_type = "DeterministicCNN"
+layers = 1
+activation = "ReLU"
