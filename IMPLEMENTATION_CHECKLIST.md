@@ -1,7 +1,6 @@
-# **IMPLEMENTATION CHECKLIST: Medical\_Image\_Analysis**
+# **IMPLEMENTATION CHECKLIST: Medical_Image_Analysis**
 
-**Purpose:**  
- Transform the full specification architecture into a deterministic, testable implementation.  
+**Purpose:** Transform the full specification architecture into a deterministic, testable implementation.  
  Each phase completes with reproducibility validation (`bitwise` or `metric-level`) before proceeding.
 
 ---
@@ -19,7 +18,7 @@
 
 * Use fixed-order reduction (Neumaier/Kahan summation).
 
-* Implement `serialize()`/`deserialize()` (binary \+ JSON).
+* Implement `serialize()`/`deserialize()` (binary + JSON).
 
 ### **Sub-phase 1B – Spectral Tensor**
 
@@ -33,10 +32,9 @@
 
 * Unit tests for arithmetic consistency and round-trip equality.
 
-* Cross-platform validation (Δ \< 1e-6).
+* Cross-platform validation (Δ < 1e-6).
 
-✅ **Checkpoint:**  
- `cargo test tensor_roundtrip` → *“Tensor round-trip identical (Δ \= 0.000000)”*
+✅ **Checkpoint:** `cargo test tensor_roundtrip` → *“Tensor round-trip identical (Δ = 0.000000)”*
 
 ---
 
@@ -65,8 +63,7 @@
 
 * Unit test ensuring round-trip stability.
 
-✅ **Checkpoint:**  
- `cargo test chromatic_roundtrip` → *“ΔColor ≤ 0.001 across hue sweep”*
+✅ **Checkpoint:** `cargo test chromatic_roundtrip` → *“ΔColor ≤ 0.001 across hue sweep”*
 
 ---
 
@@ -93,8 +90,7 @@
 
 * Deterministic color normalization tables.
 
-✅ **Checkpoint:**  
- `cargo test diagnostics_stability` → identical JSON hash across runs.
+✅ **Checkpoint:** `cargo test diagnostics_stability` → identical JSON hash across runs.
 
 ---
 
@@ -119,10 +115,9 @@
 
 * A/B harness: random vs retrieval seeding.
 
-* Expect coherence ≥ \+5 % improvement.
+* Expect coherence ≥ +5 % improvement.
 
-✅ **Checkpoint:**  
- `cargo test dream_replay` → *“retrieval improves coherence ≥ \+5 %”*
+✅ **Checkpoint:** `cargo test dream_replay` → *“retrieval improves coherence ≥ +5 %”*
 
 ---
 
@@ -133,13 +128,13 @@
 
 ### **Sub-phase 5A – Chronicle Writer**
 
-* Define `ChronicleEntry` (cycle\_id, loss, coherence, seed).
+* Define `ChronicleEntry` (cycle_id, loss, coherence, seed).
 
 * Append deterministic timestamps or counters.
 
 ### **Sub-phase 5B – Storage**
 
-* Write to `chronicle.sqlite` \+ JSON mirror.
+* Write to `chronicle.sqlite` + JSON mirror.
 
 * Integrity verified by checksum.
 
@@ -147,8 +142,7 @@
 
 * Recreate identical model state from Chronicle snapshot.
 
-✅ **Checkpoint:**  
- `cargo test chronicle_replay` → identical epoch metrics.
+✅ **Checkpoint:** `cargo test chronicle_replay` → identical epoch metrics.
 
 ---
 
@@ -165,18 +159,17 @@
 
 ### **Sub-phase 6B – Training Loop**
 
-* Implement mini-batch SGD \+ learning-rate decay.
+* Implement mini-batch SGD + learning-rate decay.
 
 * Hook chronicle logging at pre/post epoch.
 
 ### **Sub-phase 6C – Checkpointing**
 
-* Save model weights \+ optimizer state \+ config hash.
+* Save model weights + optimizer state + config hash.
 
 * Bit-level identical reload verification.
 
-✅ **Checkpoint:**  
- `pytest trainer/tests` → identical checkpoint hash across two runs.
+✅ **Checkpoint:** `cargo test trainer_checkpoint_reload` → identical checkpoint hash across two runs.
 
 ---
 
@@ -201,14 +194,13 @@
 
 ### **Sub-phase 7D – Validator**
 
-* Accuracy \+ F1 score; bias and drift detection.
+* Accuracy + F1 score; bias and drift detection.
 
 ### **Sub-phase 7E – Reports**
 
 * Generate `run_summary.md` and `metrics.json` with SHA-256 signatures.
 
-✅ **Checkpoint:**  
- Baseline accuracy ≥ 90 %, metrics JSON stable.
+✅ **Checkpoint:** Baseline accuracy ≥ 90 %, metrics JSON stable.
 
 ---
 
@@ -223,7 +215,7 @@
 
 ### **Sub-phase 8B – Execution**
 
-* Store all results in `/results/` with hash \+ timestamp.
+* Store all results in `/results/` with hash + timestamp.
 
 ### **Sub-phase 8C – Archival**
 
@@ -231,15 +223,14 @@
 
 * Verification script compares two identical runs (Δ ≤ 1e-3).
 
-✅ **Checkpoint:**  
- Re-run yields identical results.
+✅ **Checkpoint:** Re-run yields identical results.
 
 ---
 
 ## **🌐 Phase 9 — Documentation & Audit**
 
 📁 Path: `docs/` and `experiments/archive/restoration/`  
- **Goal:** Complete transparency \+ reproducibility audit.
+ **Goal:** Complete transparency + reproducibility audit.
 
 ### **Sub-phase 9A – Docs & Specs**
 
@@ -249,15 +240,14 @@
 
 ### **Sub-phase 9B – Visualization**
 
-* Build notebooks visualizing tensors, dreams, and metrics.
+* Build Rust-based examples (e.g., `mdbook`, `egui`) visualizing tensors, dreams, and metrics.
 
 ### **Sub-phase 9C – Audit**
 
 * Cross-system determinism audit  
    (`ΔColor ≤ 1e-3`, `ΔLoss ≤ 1e-6`, `Hash Drift = 0`).
 
-✅ **Checkpoint:**  
- Final audit passes with no drift.
+✅ **Checkpoint:** Final audit passes with no drift.
 
 ---
 
@@ -265,8 +255,7 @@
 
 | File | Purpose |
 | ----- | ----- |
-| `project_manifest.json` | Structural \+ hash registry of all specs/modules |
+| `project_manifest.json` | Structural + hash registry of all specs/modules |
 | `determinism_audit.log` | Full reproducibility validation |
 | `final_run_summary.md` | Narrative report of results |
 | `chronicle.sqlite` | Canonical ledger of run states |
-

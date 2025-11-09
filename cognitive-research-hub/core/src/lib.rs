@@ -4,30 +4,15 @@
 //! - `cognitive-research-hub/spec.md`
 //! - `cognitive-research-hub/core/spec.md`
 //! - `cognitive-research-hub/core/src/tensor/spec.md`
+//! - `cognitive-research-hub/core/src/bridge/spec.md`
+//! - `cognitive-research-hub/core/src/diagnostics/spec.md`
+//! - `cognitive-research-hub/core/src/dream/spec.md`
+//! - `cognitive-research-hub/core/src/error.rs`
 
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-=======
-pub mod bridge;
->>>>>>> theirs
-=======
-pub mod bridge;
->>>>>>> theirs
-=======
-pub mod bridge;
->>>>>>> theirs
-=======
-pub mod bridge;
-pub mod diagnostics;
->>>>>>> theirs
-=======
 pub mod bridge;
 pub mod diagnostics;
 pub mod dream;
->>>>>>> theirs
+pub mod error;
 pub mod tensor;
 
 /// Core tensor dimensions enforced across the system (3×12×12×3).
@@ -39,17 +24,6 @@ pub const HUE_CATEGORIES: usize = 12;
 /// Number of spectral channels per chromatic field sample.
 pub const SPECTRAL_CHANNELS: usize = 3;
 
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-=======
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
 /// Unified Modality Space total dimensionality (spectral + chromatic + temporal).
 pub const UMS_DIM: usize = 512;
 
@@ -68,16 +42,6 @@ pub const UMS_TEMPORAL_OFFSET: usize = UMS_CHROMATIC_OFFSET + UMS_CHROMATIC_BAND
 /// Number of temporal slots currently reserved within the Unified Modality Space.
 pub const UMS_TEMPORAL_BANDS: usize = UMS_DIM - UMS_TEMPORAL_OFFSET;
 
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
 /// Convenience alias for floating point operations within the core.
 pub type Fx = f32;
 

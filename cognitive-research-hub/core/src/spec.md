@@ -1,30 +1,37 @@
-core/src/src-spec.md
-Purpose
+# Module: core/src/
+# Spec Version: 1.1 (Aligned with canonical roadmap and modules)
 
-This directory defines the computational substrate of the Chromatic Core — all executable modules that implement the deterministic reasoning, transformation, and memory logic defined in the core/ specifications.
+## Purpose
 
-The src/ layer represents the engine internals: it is the code counterpart to all conceptual documents (core-spec.md, meta-spec.md, etc.) and acts as the unified API for both high-level modules (trainer, bridge) and system introspection (diagnostics, dream).
+This directory defines the computational substrate of the Chromatic Core — all executable modules that implement the deterministic reasoning, transformation, and memory logic defined in the `core/` specifications.
 
-Architectural Overview
-core/src/
+The `src/` layer represents the engine internals: it is the code counterpart to all conceptual documents and acts as the unified API for both high-level modules (like `trainer`) and system introspection.
+
+## Architectural Overview
+`core/src/`
 ├─ src-spec.md                 ← this specification
 ├─ bridge/                     ← chromatic↔spectral mapping
 ├─ diagnostics/                ← evaluation, error metrics, reports
 ├─ dream/                      ← synthetic imagination & generative logic
+├─ error.rs                    ← canonical DreamError type
 ├─ meta/                       ← chronicle, audit, and contextual metadata
 ├─ tensor/                     ← low-level deterministic math & color/spectral ops
-├─ tests/                      ← integration and regression suites
+├─ utils/                      ← saturating arithmetic & core utilities
+├─ tests/                      ← integration and regression suites (external to src/)
 └─ lib.rs                      ← core exports for the entire cognitive engine
 
-Responsibilities by Module
+## Responsibilities by Module
 Module	Primary Role	Key Interfaces
-tensor/	Foundational math: deterministic tensors, quantization, color/spectral operations.	ChromaticTensor, SpectralTensor, FixedAccumulator
-bridge/	Cross-domain transforms: RGB↔frequency, chromatic↔sonic, hue normalization, spectral reconstruction.	SpectralBridge, HueMap, EnergyCoherence
-diagnostics/	Metrics and testing: coherence, loss, divergence, FFT analysis, and visualizations.	DiagnosticsSnapshot, CoherenceMetric, TrendAnalyzer
-dream/	Synthetic imagination and memory generation: DreamPool, seeding, perturbation cycles.	DreamCycle, DreamPool, SolverResult
-meta/	Context management: chronicle, audit logs, and causal metadata for deterministic replay.	Chronicle, ContextFrame, AuditReport
-tests/	Unit and integration validation for reproducibility and determinism.	Rust test harness; cargo test integration
-Module Interconnection Diagram
+`tensor/`	Foundational math: deterministic tensors, quantization, color/spectral operations.	`ChromaticTensor`, `SpectralTensor`
+`bridge/`	Cross-domain transforms: RGB↔frequency, hue normalization, spectral reconstruction.	`SpectralBridge`, `HueMap`
+`diagnostics/`	Metrics and testing: coherence, loss, divergence, FFT analysis.	`DiagnosticsSnapshot`, `CoherenceMetric`
+`dream/`	Synthetic imagination and memory generation: DreamPool, seeding, perturbation cycles.	`DreamCycle`, `DreamPool`
+`meta/`	Context management: chronicle, audit logs, and causal metadata for deterministic replay.	`Chronicle`, `ContextFrame`
+`error.rs`	Canonical error handling for the crate.	`DreamError`, `CoreResult`
+`utils/`	ZAG compliance utilities.	`sat_add`, `sat_sub`, `sat_mul`
+`lib.rs`	Exports unified public API for the crate.	`pub use ...`
+
+## Module Interconnection Diagram
            ┌──────────────────┐
            │   Trainer (top)  │
            └──────┬───────────┘
@@ -39,30 +46,39 @@ Module Interconnection Diagram
       ┌─────────────────────────────┐
       │         tensor/             │
       └────────────┬────────────────┘
-                   ▼
-              ┌──────────┐
-              │  meta/   │  ← chronicle + audit persistence
-              └──────────┘
+                   │
+    ┌──────────────┴──────────────┐
+    │                             │
+┌───▼───┐  ┌──────────┐  ┌────────▼──┐
+│ error │  │  meta/   │  │  utils/   │
+└───────┘  └──────────┘  └───────────┘
+   (Used by all modules)   (Used by all modules)
 
-Deterministic Build Principles
+## Deterministic Build Principles
 Rule	Description
-Fixed Dependencies	No dynamic linking; all modules use stable Rust crates pinned in Cargo.toml.
+Fixed Dependencies	No dynamic linking; all modules use stable Rust crates pinned in `Cargo.toml`.
 Seed Recording	Every random or noise process records its seed to the Chronicle.
-Quantized Math	Tensor ops and spectral accumulation use fixed-point reductions.
-Canonical Order	All loops are explicitly ordered by row/column/bin; no parallel race paths.
-Cross-Platform Parity	Builds reproducibly under Windows and Linux (endianness-neutral I/O).
-File Roles at core/src/ Root
+Saturating Math	All `usize` memory/index math MUST use `utils::sat_add` etc.
+Canonical Order	All loops are explicitly ordered; no parallel race paths.
+Cross-Platform Parity	Builds reproducibly under Windows and Linux.
+
+## File Roles at core/src/ Root
 File	Description
-lib.rs	Exports unified public API: pub use for bridge, tensor, dream, meta, diagnostics.
-src-spec.md	Documentation of this architecture and coding rules.
-tests/	Cross-module tests for reproducibility, serialization, and full dream→learn→chronicle loop.
-Integration Tests (core/src/tests/)
+`lib.rs`	Exports unified public API: `pub use` for all modules.
+`error.rs`	Defines `DreamError`.
+`src-spec.md`	Documentation of this architecture and coding rules.
+
+## Integration Tests (Located in `core/tests/`)
 Test	Goal	Modules Involved
-test_core_roundtrip.rs	Verify Chromatic→Spectral→Chromatic path consistency.	tensor, bridge
-test_dream_replay.rs	Re-run identical DreamPool sequence under recorded seeds.	dream, meta
-test_diagnostics_stability.rs	Validate metrics are invariant to order or platform.	diagnostics, tensor
-test_core_api.rs	Ensure crate-level re-exports work.	lib.rs
-Build & Usage
+`test_core_roundtrip.rs`	Verify Chromatic→Spectral→Chromatic path consistency.	`tensor`, `bridge`
+`test_dream_replay.rs`	Re-run identical DreamPool sequence under recorded seeds.	`dream`, `meta`
+`test_diagnostics_stability.rs`	Validate metrics are invariant to order or platform.	`diagnostics`, `tensor`
+`test_core_api.rs`	Ensure crate-level re-exports work.	`lib.rs`
+`test_error_handling.rs`	Ensure modules correctly propagate `DreamError`.	`error`, all modules
+`test_saturating_math.rs`	Verify `utils` helpers are used and prevent overflow.	`utils`, `tensor`
+
+## Build & Usage
+```bash
 # Build the chromatic core
 cargo build --release -p chromatic_core
 
@@ -71,21 +87,3 @@ cargo test --workspace -- --nocapture
 
 # Generate documentation
 cargo doc --no-deps --open
-
-Determinism Policy
-
-All computations within core/src must satisfy the HQAPR standard
-(High-Quality Audit and Predictable Reproduction).
-
-Category	Requirement
-Floating-Point Operations	Must be order-stable and quantized when summing more than 8 terms.
-Randomness	All RNGs seeded and logged per cycle.
-File I/O	Uses CRC64 for every .cten, .sten, .cmeta file.
-Cross-System Parity	Identical hashes between Windows and Linux builds verified weekly.
-Status
-Field	Value
-Spec Version	1.0
-Alignment	Foundation for Phases 5–7
-Dependencies	serde, ndarray, crc64, approx, rayon (optional, gated)
-Determinism Level	Full deterministic replay
-Implementation Readiness	✅ Stable for code generation

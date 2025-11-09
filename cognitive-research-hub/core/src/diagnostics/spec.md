@@ -1,16 +1,16 @@
-diagnostics/spec.md
-Module: core/src/diagnostics/
-Purpose
+# Module: core/src/diagnostics/
+# Spec Version: 1.1 (Aligned with canonical roadmap)
+# Purpose
 
 The Diagnostics module provides deterministic self-assessment and fault detection for the Chromatic Core.
 It continuously monitors coherence, spectral balance, and energy conservation across color–sound conversion and learning cycles.
 Its goal is quantitative self-validation — ensuring all bridge, dream, and tensor modules maintain coherence and reversibility over time.
 
-Scope
+# Scope
 Layer	Responsibility
 Metrics	Real-time tracking of spectral and chromatic deltas (ΔH, ΔS, ΔL, ΔE).
 Visual Diagnostics	Generates human-readable plots of tensor stability, gradient fields, and spectral drift.
-Continuity Control Hooks	Connects with Phase 6C/6D modules to update the trend and classification predictors.
+Continuity Control Hooks	Connects with **Phase 3** modules to update the trend and classification predictors.
 Reporting Interface	Writes results to the Chronicle system for long-term analysis and phase validation.
 Subsystems
 
@@ -39,7 +39,7 @@ pub fn render_energy_drift_plot(log: &[EnergySample]) -> SvgDocument;
 
 Continuity Interface
 
-Provides hooks for predictive diagnostics inside Phase 6 (Trend → Action → Classification).
+Provides hooks for predictive diagnostics inside **Phase 3** (Trend → Action → Classification).
 
 Supplies rule-based triggers for trend threshold breaches.
 
@@ -96,8 +96,8 @@ Fixed lookup tables for normalization and calibration are stored in diagnostics/
 
 Status
 Field	Value
-Spec Version	1.0
+Spec Version	1.1
 Author	System Architect
-Phase Alignment	6C → 7B
+**Phase Alignment**	**Phase 3**
 Readiness	Ready for implementation
 Next Module	core/src/meta (Chronicle integration)
