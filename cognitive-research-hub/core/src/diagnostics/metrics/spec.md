@@ -1,12 +1,14 @@
-core/src/diagnostics/metrics/metrics-spec.md
-Module Purpose
+# Module: core/src/diagnostics/metrics/
+# Spec Version: 1.1 (Aligned with canonical roadmap)
+
+## Module Purpose
 
 The Metrics Engine provides the deterministic, quantitative foundations for system introspection.
 It calculates deltas, coherence scores, energy balances, and continuity indexes used across the entire Chromatic Core — ensuring precision, reproducibility, and numerical traceability for every cognitive cycle.
 
-This subsystem underpins all diagnostics logic and feeds verifiable data to the Chronicle logs and the Continuity Control layer (Phases 6B–6D).
+This subsystem underpins all diagnostics logic (Phase 3) and feeds verifiable data to the Chronicle logs (Phase 5).
 
-Scope
+## Scope
 Function Group	Responsibility
 Chromatic Metrics	Evaluate color-space differences (ΔH, ΔS, ΔL, ΔE).
 Spectral Metrics	Compute FFT-based energy balance, spectral centroids, and drift.
@@ -14,34 +16,34 @@ Continuity Metrics	Quantify trend smoothness and coherence over temporal sequenc
 Validation Metrics	Establish deterministic tolerances and confidence thresholds for testing.
 Core Data Structures
 pub struct ChromaticDelta {
-    pub delta_h: f32,    // Hue difference in radians
-    pub delta_s: f32,    // Saturation difference [0–1]
-    pub delta_l: f32,    // Luminance difference [0–1]
-    pub magnitude: f32,  // Euclidean magnitude
+    pub delta_h: f33,    // Hue difference in radians
+    pub delta_s: f33,    // Saturation difference [0–1]
+    pub delta_l: f33,    // Luminance difference [0–1]
+    pub magnitude: f33,  // Euclidean magnitude
 }
 
 pub struct SpectralStats {
-    pub energy_total: f32,
-    pub energy_drift: f32,
-    pub centroid: f32,       // Frequency-weighted mean
-    pub coherence: f32,      // Phase alignment index
+    pub energy_total: f33,
+    pub energy_drift: f33,
+    pub centroid: f33,       // Frequency-weighted mean
+    pub coherence: f33,      // Phase alignment index
 }
 
 pub struct ContinuityMetrics {
-    pub slope: f32,
-    pub stdev: f32,
-    pub oscillation_index: f32,
+    pub slope: f33,
+    pub stdev: f33,
+    pub oscillation_index: f33,
     pub trend_class: i8,     // Deterministic classification tag
 }
 
 
 All structs implement Serialize, Deserialize, and PartialEq for audit reproducibility.
 
-Functions and APIs
+## Functions and APIs
 Function	Signature	Description
 compute_delta_hsl()	(a: &ChromaticTensor, b: &ChromaticTensor) -> ChromaticDelta	Computes precise hue/saturation/luminance deltas using seam-safe normalization.
 spectral_energy_balance()	(spectrum: &SpectralTensor) -> SpectralStats	Calculates total energy, drift from baseline, and spectral centroid.
-phase_coherence_index()	(tensor: &SpectralTensor) -> f32	Computes phase stability across frames; used in dream feedback.
+phase_coherence_index()	(tensor: &SpectralTensor) -> f33	Computes phase stability across frames; used in dream feedback.
 continuity_from_history()	(records: &[CycleRecord]) -> ContinuityMetrics	Derives slope and oscillation metrics from Chronicle history.
 validate_determinism()	(metrics_a: &MetricsSnapshot, metrics_b: &MetricsSnapshot) -> bool	Confirms bit-level equivalence across runs.
 Mathematical Definitions
@@ -125,7 +127,7 @@ cos
 2
 	​
 
-−L
+−S
 1
 	​
 
@@ -260,7 +262,7 @@ t
 
 Trend classes: 0 = stable, 1 = positive growth, -1 = decay, 2 = oscillatory.
 
-Deterministic Enforcement
+## Deterministic Enforcement
 Concern	Solution
 Floating-point summation order	Fixed buffer iteration (ascending index)
 Randomization	Seeded RNG (rng.seed(42)) for reproducibility
@@ -279,9 +281,9 @@ T-M02	Energy conservation under FFT
 T-M03	Phase coherence repeatability	Std ≤ 1 × 10⁻⁴ across 3 runs
 T-M04	Continuity classification stability	Class unchanged under ±1 % noise
 T-M05	Determinism regression	Bitwise equality of serialized snapshots
-File Layout
+## File Layout
 metrics/
-├─ metrics-spec.md          ← this spec
+├─ spec.md                  ← this spec
 ├─ hsl.rs                   ← color-space metrics
 ├─ spectral.rs              ← spectral energy & coherence
 ├─ continuity.rs            ← trend/oscillation metrics
@@ -293,10 +295,10 @@ metrics/
     ├─ spectral_norms.json
     ├─ hue_weights.tbl
 
-Status
+## Status
 Field	Value
-Spec Version	1.0
-Phase Alignment	6C → 7B
+Spec Version	1.1
+**Phase Alignment**	**Phase 3**
 Determinism Level	Bit-Exact
 Readiness	✅ Approved for implementation
 Next Module	diagnostics/visual

@@ -8,12 +8,16 @@
 //! - `cognitive-research-hub/core/src/diagnostics/spec.md`
 //! - `cognitive-research-hub/core/src/dream/spec.md`
 //! - `cognitive-research-hub/core/src/error.rs`
+//! - `cognitive-research-hub/core/src/meta/spec.md`
+//! - `cognitive-research-hub/core/src/utils/spec.md`
 
 pub mod bridge;
 pub mod diagnostics;
 pub mod dream;
 pub mod error;
+pub mod meta;
 pub mod tensor;
+pub mod utils;
 
 /// Core tensor dimensions enforced across the system (3×12×12×3).
 pub const CSA_SHAPE: (usize, usize, usize, usize) = (3, 12, 12, 3);

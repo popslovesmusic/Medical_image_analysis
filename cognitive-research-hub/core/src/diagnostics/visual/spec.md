@@ -1,12 +1,13 @@
-core/src/diagnostics/visual/visual-spec.md
-Purpose
+# Module: core/src/diagnostics/visual/
+# Spec Version: 1.1 (Aligned with canonical roadmap)
+# Purpose
 
 The Visual Diagnostics Module provides deterministic, reproducible visualizations of internal system states for human inspection and automated validation.
 It transforms numerical metrics from diagnostics/metrics into images, plots, and interactive maps representing the stability and coherence of the Chromatic Core.
 
 It is designed for visual continuity verification, training analysis, and phase integrity review during system development.
 
-Scope
+# Scope
 Layer	Role
 Rendering Engine	Converts metrics into raster or vector graphics for inspection.
 Spiral Visualization	Displays chromatic trajectory in hue–saturation–coherence space.
@@ -17,21 +18,19 @@ Data Inputs
 
 From Metrics Engine (metrics/)
 
-ChromaticDelta
-
-SpectralStats
-
-ContinuityMetrics
+* ChromaticDelta
+* SpectralStats
+* ContinuityMetrics
 
 From Chronicle (meta/chronicle)
 
-CycleRecord series for long-term temporal visualizations.
+* CycleRecord series for long-term temporal visualizations.
 
 From Tensor Modules (tensor/)
 
-For raw field-to-image rendering and tensor map overlays.
+* For raw field-to-image rendering and tensor map overlays.
 
-Core Functions
+# Core Functions
 Function	Signature	Description
 plot_chromatic_spiral()	(history: &[ChromaticTensor]) -> ImageBuffer	Renders 2D spiral showing hue and coherence evolution across dream cycles.
 render_energy_drift_plot()	(drift_data: &[SpectralStats]) -> SvgDocument	Plots total spectral energy over epochs to visualize conservation.
@@ -44,122 +43,21 @@ Chromatic Spiral Plot
 
 Coordinates:
 
-𝑥
-=
-𝑆
-⋅
-cos
-⁡
-(
-𝐻
-)
-,
-𝑦
-=
-𝑆
-⋅
-sin
-⁡
-(
-𝐻
-)
-x=S⋅cos(H),y=S⋅sin(H)
+$x = S \cdot \cos(H), y = S \cdot \sin(H)$
 
 Hue (H) controls angular rotation, Saturation (S) sets radius.
 
 Spiral’s radial displacement shows coherence over time:
 
-𝑟
-𝑡
-=
-𝑆
-𝑡
-⋅
-𝐶
-𝑡
-r
-t
-	​
+$r_t = S_t \cdot C_t$
 
-=S
-t
-	​
-
-⋅C
-t
-	​
-
-
-where
-𝐶
-𝑡
-C
-t
-	​
-
- = Coherence metric.
+where $C_t$ = Coherence metric.
 
 Spectral Drift Curve
 
 Derived from average spectral centroid drift:
 
-Δ
-𝑓
-𝑡
-=
-𝑓
-𝑐
-𝑒
-𝑛
-𝑡
-𝑟
-𝑜
-𝑖
-𝑑
-,
-𝑡
-−
-𝑓
-𝑐
-𝑒
-𝑛
-𝑡
-𝑟
-𝑜
-𝑖
-𝑑
-,
-0
-𝑓
-𝑐
-𝑒
-𝑛
-𝑡
-𝑟
-𝑜
-𝑖
-𝑑
-,
-0
-Δf
-t
-	​
-
-=
-f
-centroid,0
-	​
-
-f
-centroid,t
-	​
-
-−f
-centroid,0
-	​
-
-	​
-
+$\Delta f_t = \frac{f_{centroid,t} - f_{centroid,0}}{f_{centroid,0}}$
 
 Color-coded trace indicates deviation from baseline.
 
@@ -167,30 +65,7 @@ Coherence Heatmap
 
 2D grid with time vs frequency axes, filled by normalized coherence:
 
-Color
-(
-𝑡
-,
-𝑓
-)
-=
-map
-(
-𝐶
-𝑡
-(
-𝑓
-)
-)
-→
-𝑅
-𝐺
-𝐵
-Color(t,f)=map(C
-t
-	​
-
-(f))→RGB
+$\text{Color}(t, f) = \text{map}(C_t(f)) \rightarrow RGB$
 
 Uses perceptually uniform color mapping (CET or Viridis LUT).
 
@@ -214,7 +89,7 @@ test_heatmap_stability	Repeated render with same data	Identical hash output
 test_dashboard_export	PNG + SVG file integrity	Valid format, <1% size variance
 File Layout
 visual/
-├─ visual-spec.md                ← this document
+├─ spec.md                       ← this document
 ├─ renderer.rs                   ← image/signal plotting engine
 ├─ chromatic_spiral.rs           ← hue–saturation spiral rendering
 ├─ spectral_drift.rs             ← spectral energy drift plots
@@ -230,9 +105,9 @@ visual/
 
 Status
 Field	Value
-Spec Version	1.0
-Phase Alignment	7B
+Spec Version	1.1
+**Phase Alignment**	**Phase 3**
 Determinism Level	Bit-Exact Rendering
 Dependencies	metrics, tensor, chronicle
-Next Module	core/src/diagnostics/continuity
+**Next Module**	**Phase 4 - Dream Subsystem**
 Readiness	✅ Ready for implementation
