@@ -12,7 +12,7 @@ Subsystem	Responsibility
 Dream Generator	Produces new `ChromaticTensor` instances through **controlled, deterministic** perturbations.
 Dream Pool	Manages the storage, retrieval, and mutation of synthetic dreams (vector archives).
 Dream Cycle Controller	Executes the iterative “dream–evaluate–refine” loop.
-Retrieval Interface	Supplies high-coherence synthetic tensors to the Learner or Planner.
+Retrieval Interface	Supplies high-coherence synthetic tensors to the **Trainer** or Planner.
 Validation Layer	Measures coherence, diversity, and energy balance between dreams and ground truth.
 
 ## Core Data Structures
@@ -72,12 +72,13 @@ This module's output is fully deterministic. All sources of potential variation 
 * **Storage:** The `SimpleDreamPool` MUST use a deterministic eviction policy (e.g., replace lowest `score`, then oldest `epoch`).
 
 ## Integration Points
-Module	Direction	Function
-`tensor`	Input/Output	Provides base tensor structure and FFT operations
-`metrics`	Input	Supplies coherence, delta, and drift metrics
-`learner`	Output	Supplies augmented data for learner training
-`continuity`	Feedback	Feeds stability trend data for synthetic perturbation scheduling
-`chronicle`	Log	Records each dream cycle’s metrics for replay
+| Module | Direction | Function |
+| :--- | :--- | :--- |
+| `tensor` | Input/Output | Provides base tensor structure and FFT operations |
+| `metrics` | Input | Supplies coherence, delta, and drift metrics |
+| **`trainer`** | Output | Supplies augmented data for **trainer** learning |
+| `continuity` | Feedback | Feeds stability trend data for synthetic perturbation scheduling |
+| `chronicle` | Log | Records each dream cycle’s metrics for replay |
 
 ## Validation Tests
 Test	Description	Expected Result
@@ -105,7 +106,7 @@ Test	Description	Expected Result
 │   ├─ `test_cycle.rs`
 └─ `lut/`
     ├─ `gaussian_noise.tbl`
-    ├─ `perlin_noise.tbl`
+    └─ `perlin_noise.tbl`
 
 ## Status
 Field	Value

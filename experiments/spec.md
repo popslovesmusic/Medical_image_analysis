@@ -1,5 +1,5 @@
 # Module: experiments/
-# Spec Version: 1.0
+# Spec Version: 1.1
 # Purpose
 
 This directory provides the framework for structured experiment orchestration and archival.
@@ -38,4 +38,4 @@ This module does not define new data structures, but it orchestrates the flow of
 * **Full Reproducibility:** Any experiment in `results/` or `archive/` MUST be perfectly reproducible by re-running the trainer with the *exact* same config file and a clean environment.
 * **Verification:** The `archive/` process should include a verification script (e.g., `cargo run --package verifier`) that re-runs the experiment and performs an audit (using `meta/audit`) to ensure the results are identical.
 
-## File Layout
+## File Layout 🛠️

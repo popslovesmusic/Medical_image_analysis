@@ -101,7 +101,7 @@
 
 ### **Sub-phase 4A – Dream Pool**
 
-* Implement `SimpleDreamPool` (SQLite backend).
+* Implement `SimpleDreamPool` (in-memory or simple binary store).
 
 * Methods: `save_entry()`, `retrieve_ranked()`, `entry_to_tensor()`.
 
@@ -134,7 +134,7 @@
 
 ### **Sub-phase 5B – Storage**
 
-* Write to `chronicle.sqlite` + JSON mirror.
+* Write to **`chronicle.cmeta`** + JSON mirror.
 
 * Integrity verified by checksum.
 
@@ -258,4 +258,4 @@
 | `project_manifest.json` | Structural + hash registry of all specs/modules |
 | `determinism_audit.log` | Full reproducibility validation |
 | `final_run_summary.md` | Narrative report of results |
-| `chronicle.sqlite` | Canonical ledger of run states |
+| **`chronicle.cmeta`** | Canonical ledger of run states |

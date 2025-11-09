@@ -49,7 +49,7 @@ data/
 III. Data Flow Stages
 Stage	Input	Output	Responsible Module
 Acquisition	Raw DICOM, annotations	Manifest + metadata JSON	data/raw/
-Preprocessing	Raw + configs	Normalized slices, tensors	trainer/src/preprocessing.rs
+Preprocessing	Raw + configs	Normalized slices, tensors	**trainer/src/tokenizer/**
 Transformation	Processed tensors	Chromatic/Spectral tensors	core/src/tensor/
 Validation	Any stage	Audit logs	core/src/diagnostics/
 
@@ -107,30 +107,7 @@ Compression: Allowed formats — PNG (16-bit), NPY (float32), custom .cten/.sten
 
 Reversibility:
 
-Δ
-𝑟
-𝑒
-𝑐
-𝑜
-𝑛
-𝑠
-𝑡
-𝑟
-𝑢
-𝑐
-𝑡
-<
-1
-𝑒
-−
-3
-Δ
-reconstruct
-	​
-
-<1e
-−3
- between raw and reconstructed tensor.
+$$\Delta_{reconstruct} < 1e^{-3}$$ between raw and reconstructed tensor.
 
 Provenance Chain: Every derived tensor must reference its origin via manifest UID.
 
@@ -150,8 +127,8 @@ Results are written to data/logs/validation_<date>.json with metrics:
 
 Metric	Pass Criteria
 checksum_match	True
-Δmean_intensity	≤ 1%
-chromatic_coherence	≥ 0.95
+$$\Delta_{mean\_intensity} \le 1\%$$
+chromatic_coherence	$$\ge 0.95$$
 manifest_valid	True
 VIII. Ethical Safeguards
 

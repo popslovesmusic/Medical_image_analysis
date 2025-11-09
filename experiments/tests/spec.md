@@ -33,4 +33,4 @@ Its purpose is to verify that the individually-tested crates (`core`, `trainer`)
     3.  Runs a *separate* `trainer` from scratch for 4 epochs continuously.
     4.  **Pass Condition:** The final model weights and `metrics.json` from both runs MUST be identical.
 
-## File Layout
+## File Layout 🛠️

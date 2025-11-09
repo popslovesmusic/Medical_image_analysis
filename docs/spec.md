@@ -9,13 +9,10 @@ Specification: Documentation Layer
 Module Path: docs/
 Parent Specs:
 
-root-spec.md (global repository overview)
-
-core/spec.md (technical core references)
-
-trainer/spec.md (model and training documentation)
-
-experiments/spec.md (experimental log integration)
+AGENTS.md (Global repository governance and ZAGs)
+core/spec.md (Technical core references)
+trainer/spec.md (Model and training documentation)
+experiments/spec.md (Experimental log integration)
 
 I. Mission
 
@@ -24,11 +21,8 @@ The Documentation Layer ensures that every component, process, and transformatio
 This layer connects:
 
 📑 Specifications — design blueprints and standards.
-
 📈 Reports — results and analyses from experimental runs.
-
 🧭 Diagrams — process visualizations for architecture and data flow.
-
 🧩 References — links to external sources, datasets, and regulatory compliance.
 
 Its purpose is to maintain a living design record synchronized with the cognitive core and training subsystems — forming the “Single Source of Truth” (SSOT) for the project.
@@ -50,7 +44,7 @@ docs/
 │  ├─ dataflow/
 │  ├─ bridge/
 │  └─ model/
-├─ templates/           # Markdown or LaTeX templates for consistent docs
+├─ templates/           # Markdown templates for consistent docs
 ├─ changelogs/          # Structured update records (per release)
 └─ references/          # External papers, datasets, APIs, and standards
 
@@ -61,11 +55,8 @@ Markdown (.md) files defining architecture, protocols, and module responsibiliti
 All specs must include:
 
 Version number
-
 Determinism level
-
 Change history
-
 Responsible agent or maintainer
 
 Naming convention:
@@ -77,14 +68,11 @@ phase_<N>_<module>_spec.md
 Generated outputs summarizing:
 
 Model validation metrics
-
 Diagnostic test results
-
 Core audit findings
-
 Cross-phase performance logs
 
-Reports are written automatically by Codex or core/diagnostics modules and stored in docs/reports/.
+Reports are written automatically by core/diagnostics modules and stored in docs/reports/.
 
 Naming convention:
 
@@ -96,11 +84,8 @@ Visual documentation for architecture, data flow, tensor bridges, and diagnostic
 Preferred formats:
 
 .svg (vector, editable)
-
 .drawio (editable flow diagrams)
-
 .png (snapshots)
-
 .md with embedded ASCII for Git diffs
 
 Naming convention:
@@ -113,11 +98,11 @@ Every .md spec must follow this standard header:
 
 # Specification: <Title>
 
-**Module Path:** `<relative path>`  
-**Version:** 1.0  
-**Maintainer:** <Agent Name>  
-**Last Updated:** {{auto-date}}  
-**Determinism Level:** <Bit-Exact / Analytical / Probabilistic>  
+**Module Path:** `<relative path>`
+**Version:** 1.0
+**Maintainer:** <Agent Name>
+**Last Updated:** {{auto-date}}
+**Determinism Level:** <Bit-Exact / Analytical / Probabilistic>
 
 ---
 
@@ -163,18 +148,16 @@ Diagram Source	Editable (no raster-only formats)
 Version Tags	Semantic versioning (1.0.0, 1.1.0...)
 Cross-Reference	Linked to code modules via relative paths
 Accessibility	WCAG-compliant for visualizations
-Automation	Must be processable by scripts/build_docs.py
+Automation	Must be processable by a Rust-native tool (e.g., `mdbook` or a `doc_builder` crate)
+
 VII. Automation and Regeneration
 
-Codex maintains this layer automatically through:
+This layer is maintained automatically through Rust-native tooling:
 
-scripts/build_docs.py — rebuilds specs and changelogs
-
-scripts/gen_diagrams.py — regenerates UML or flow diagrams
-
-core/meta/chronicle.rs — verifies synchronization between code and spec version
-
-experiments/archive/sync_docs.py — backups and versions documentation bundles
+**`cargo run --package doc_builder`** — rebuilds specs and changelogs
+**`cargo run --package diagram_generator`** — regenerates diagrams using Rust libraries
+**`core/meta/chronicle.rs`** — verifies synchronization between code and spec version
+**`experiments/archive/restoration/`** — Rust-based audit scripts for docs
 
 Each document is signed by the Codex Documentation Agent with a SHA256 digest stored in:
 
@@ -185,11 +168,8 @@ VIII. Determinism Policy
 To ensure all documentation outputs are identical across builds:
 
 Auto-timestamp normalization ({{auto-date}} replaced post-hash)
-
 SHA-based file linking for diagrams and specs
-
 Non-stochastic rendering for generated diagrams
-
 Stable sort order in table rendering and file manifests
 
 These guarantees ensure that the docs directory itself can serve as a cryptographic proof of project integrity.
@@ -199,7 +179,7 @@ Producer	Consumer	Data Flow
 core/diagnostics	docs/reports/	Validation summaries
 trainer/validator	docs/reports/performance/	Training metrics
 core/meta	docs/specs/	Auto-embed spec hashes
-scripts/	docs/diagrams/	Generated visualizations
+scripts/	docs/diagrams/	(DEPRECATED: See `cargo run --package diagram_generator`)
 experiments/	docs/reports/	Experiment result archives
 X. Compliance Summary
 Field	Specification
