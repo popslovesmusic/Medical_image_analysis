@@ -14,7 +14,8 @@ The following rules are **Zero Ambiguity Guarantees (ZAGs)** that the agent MUST
 
 ### **A. Architectural & Data Integrity**
 
-1.  **Primary Language:** **Rust (2021 Edition)**. Do not introduce Python, C++, or external FFI unless explicitly defined by spec.
+1.  **Primary Language:** **Rust (2021 Edition)**. Do not introduce Python, C++, or other languages.
+    * **Exception:** A Foreign Function Interface (FFI) to system-level **OpenCL** is permitted for GPU compute, as it is a mandated hardware dependency.
 2.  **Fixed Structure:** The core processing unit size is **immutable**: $\mathbf{3 \times 12 \times 12 \times 3}$. All code must reference centralized constants for these dimensions.
 3.  **Numeric Precision:** Core tensor and neural operations MUST use $\mathbf{\text{f32}}$. $\mathbf{\text{f64}}$ is reserved ONLY for validation ($\mathbf{\Delta E_{94}}$) and memory bookkeeping.
 4.  **Fidelity Threshold:** All round-trip color conversions must be tested and validated against $\mathbf{\Delta E_{94} \le 1.0 \times 10^{-3}}$.
@@ -41,14 +42,12 @@ This document provides the high-level governance (ZAGs) and crate structure. The
 | Directory | Crate Name | Primary Responsibility |
 | :--- | :--- | :--- |
 | **/core** | chromatic-core | **Execution Engine:** $\text{Tensor}$ operations, $\text{CSA}$ (Dream Pool), $\text{ModalityMapper}$, $\text{HNSW}$. |
-| **/trainer** | tiny-agent-trainer | **Generative Engine:** $\text{Transformer Model}$, $\text{WGSL}$ generation, $\text{Tokenizer}$, $\text{Validator}$. |
+| **/trainer** | tiny-agent-trainer | **Generative Engine:** $\text{Transformer Model}$, **$\text{OpenCL}$ kernels**, $\text{Tokenizer}$, $\text{Validator}$. |
 | **/Cargo.toml (root)** | \[workspace\] | Defines the dependency links and build members. |
 
 ## **III. SEQUENTIAL DEVELOPMENT PHASES**
 
 Implementation MUST follow the 9-phase roadmap defined in **`IMPLEMENTATION_CHECKLIST.md`**. That document is the Single Source of Truth for the development sequence, sub-phases, and validation checkpoints.
-
-*(Previous 5-phase definition removed to prevent conflict with the authoritative checklist.)*
 
 ## **IV. TECHNICAL PROTOCOLS (Agent Workflow)**
 
@@ -61,5 +60,5 @@ Implementation MUST follow the 9-phase roadmap defined in **`IMPLEMENTATION_CHEC
 ### **B. Tooling and Dependencies**
 
 1.  **Scientific Support:** When mathematical or array manipulation is required, use the $\mathbf{\text{ndarray}}$ and $\mathbf{\text{Rayon}}$ crates.
-2.  **GPU:** Use the **wgpu** crate and **WGSL** for all visualization and $\text{Compute Shader}$ tasks.
+2.  **GPU:** Use **OpenCL** (via a Rust wrapper like the `ocl` crate) for all visualization and $\text{Compute Shader}$ tasks.
 3.  **Dependencies:** Do not add new top-level dependencies without explicit confirmation.
